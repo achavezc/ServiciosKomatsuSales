@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="es" class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="api" ng-controller="LayoutController"> <![endif]-->
+<!--[if IE 7]>
+<html lang="es" class="no-js lt-ie9 lt-ie8" ng-app="api" ng-controller="LayoutController"> <![endif]-->
+<!--[if IE 8]>
+<html lang="es" class="no-js lt-ie9" ng-app="api" ng-controller="LayoutController"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="es" class="no-js" ng-app="api" ng-controller="LayoutController">
+ <link rel="stylesheet" href="/css/bootstrap/3.2.0/bootstrap.min.css"> 
+<!--<![endif]-->
+<!--[if lt IE 9]>
+ <link rel="stylesheet" href="/css/bootstrap/3.2.0/bootstrap.min.css">  
+ <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  
+               <style>     .container { width: 100%; } </style>
+<![endif]-->
+<head>
+    @RenderSection("Meta", false)
+    @Html.Raw(@"@RenderSection(""Meta"", false)")
+    <meta charset="utf-8" />
+    <title>@Common.WebSiteChannel.Properties.Content.Title - @Html.Raw("@ViewBag.Title")</title>
+    @RenderSection("Head", false)
+    @Html.Raw(@"@RenderSection(""Head"", false)")
+    @Html.Raw("@RenderSection(\"Styles\", required: false)")
+    @Html.Raw(@"@Html.Raw(StackExchange.Profiling.MiniProfiler.RenderIncludes().ToString().Replace(""/weblib/profiler/"", Viatecla.Factory.Scriptor.ModularSite.Models.Common.GetConfigValue(""PrefixPath"") + ""/weblib/profiler/""))")
+
+</head>
+<body>
+    @Html.AntiForgeryToken()
+    @RenderBody()
+    @*Website layout template must have its own @Html.Raw(@"@RenderBody()") *@
+
+    @RenderSection("Scripts", false)
+    @Html.Raw(@"@RenderSection(""Scripts"", false)")
+</body>
+</html>

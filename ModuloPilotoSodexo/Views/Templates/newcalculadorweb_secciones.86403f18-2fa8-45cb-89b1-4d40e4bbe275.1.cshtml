@@ -1,0 +1,31 @@
+@model ScriptorContent
+@using Viatecla.Factory.Scriptor
+
+@{
+var content=Model;
+}
+
+  <div style="display:none">@content.Parts.CrearSeccion.ToString()</div>
+  
+  @if(content.Parts.CrearSeccion.ToString().ToLower()=="1")
+  {
+    @:<div>
+    @:<div class="block_cab block_cab_active">
+    @:    <h2>
+    @:        <span>@Model.Parts.Titulo</span></h2>
+    @:    <h3></h3>
+    @:    <div class="acordeon">
+    @:    </div>
+    @:</div>
+    @:<div class="block_content" style="width:100%">
+  }
+    
+    @foreach(ScriptorContent mcontent in content.Parts.Controls)
+    {
+      @Html.Template((ScriptorContent)mcontent)
+    }
+    @if(content.Parts.CrearSeccion.ToString().ToLower()=="1")
+    {
+      @:</div>
+      @:</div>
+    }

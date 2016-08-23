@@ -1,0 +1,491 @@
+@using Viatecla.Factory.Scriptor
+@using System.Xml
+@using GR.Scriptor.Frameworks
+@model ScriptorContent
+
+@{
+    ScriptorContent primerContenido = null;
+    ScriptorFormulario scriptorFormulario = new ScriptorFormulario();
+    ScriptorDivisiones scriptorDivisiones = new ScriptorDivisiones();
+    scriptorDivisiones.TituloDivision = "Datos Generales";
+    scriptorDivisiones.ListaAtributos = new List<ScriptorAtributo>();
+    scriptorFormulario.ListaDivisiones = new List<ScriptorDivisiones>();
+
+    if (Request.QueryString["idc"] == null)
+    {
+        primerContenido = Model.Channel.Parent.Contents.FirstOrDefault();
+    }
+    else
+    {
+        primerContenido = Model.Channel.Parent.QueryContents("#Id", Request.QueryString["idc"].ToString(), "=").ToList().FirstOrDefault();
+    }
+    if (primerContenido != null)
+    {
+        String idPrimerContenido = primerContenido.Id.ToString();
+        String idCanal = primerContenido.Channel.Id.ToString();
+
+
+        Scriptor.scrEdit objScriptor = new Scriptor.scrEdit(System.Configuration.ConfigurationManager.AppSettings["Viatecla.Factory.Scriptor.ConnectionString"].ToString(), "anonimo", String.Empty, "/scrEdit.log");
+        XmlNode nodeResult = objScriptor.getContentViewXML(idCanal, idPrimerContenido, "pt", "1");
+        ScriptorAtributo itemScriptorAtributo = new ScriptorAtributo();
+        
+        try
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            using (XmlReader mireader = new XmlTextReader(new System.IO.StringReader(nodeResult.InnerXml)))
+            {
+
+                xmlDoc.Load(mireader);
+                List<XmlEntity> xmlEntities = new List<XmlEntity>();
+
+
+                foreach (XmlNode item in xmlDoc.ChildNodes)
+                {
+
+                    foreach (XmlNode itemchildren1 in item.ChildNodes)
+                    {
+                        itemScriptorAtributo = new ScriptorAtributo();
+                        itemScriptorAtributo.ListaValoresDetalle=new ListaValoresDetalleAtributo();
+                        
+                        if (itemchildren1.Attributes["id"] != null)
+                        {
+                            itemScriptorAtributo.IdCampo = itemchildren1.Attributes["id"].Value;
+                        }
+                        if (itemchildren1.Attributes["field_type"] != null)
+                        {
+                            itemScriptorAtributo.Tipo = itemchildren1.Attributes["field_type"].Value;
+                        }
+                        if (itemchildren1.Attributes["name"] != null)
+                        {
+                            itemScriptorAtributo.NombreCampo = itemchildren1.Attributes["name"].Value;
+                        }
+                        if (itemchildren1.Attributes["txt_description"] != null)
+                        {
+                            itemScriptorAtributo.Descripcion = itemchildren1.Attributes["txt_description"].Value;
+                        }
+                        if (itemchildren1.Attributes["txt_content_field_list"] != null)
+                        {
+                            itemScriptorAtributo.ValorCombo = itemchildren1.Attributes["txt_content_field_list"].Value;
+                        }
+                        if (itemchildren1.Attributes["txt_default_value"] != null)
+                        {
+                            itemScriptorAtributo.ValorDefecto = itemchildren1.Attributes["txt_default_value"].Value;
+                        }
+                        if (itemchildren1.Attributes["n_db_size"] != null)
+                        {
+                            itemScriptorAtributo.CantidadCaracteres = itemchildren1.Attributes["n_db_size"].Value;
+                        }
+                        if (itemchildren1.Attributes["n_order"] != null)
+                        {
+                            itemScriptorAtributo.Orden = itemchildren1.Attributes["n_order"].Value;
+                        }
+                        if (itemchildren1.Attributes["prompt"] != null)
+                        {
+                            itemScriptorAtributo.NombreFormulario = itemchildren1.Attributes["prompt"].Value;
+                        }
+                        if (itemchildren1.Attributes["b_optional"] != null)
+                        {
+                            itemScriptorAtributo.EsOpcional = itemchildren1.Attributes["b_optional"].Value;
+                        }
+                        if (itemchildren1.Attributes["fk_content_criteria"] != null)
+                        {
+                            itemScriptorAtributo.CriterioControl = itemchildren1.Attributes["fk_content_criteria"].Value;
+                        }
+                        if (itemchildren1.Attributes["txt_form_params"] != null)
+                        {
+                            itemScriptorAtributo.JsonFormParametros = itemchildren1.Attributes["txt_form_params"].Value;//"{ Titulo:"", CampoOrigen:"",UrlBusqueda:"", ListaOrigenDestino: {Origen:'xxxxxx',Destino:'yyyyy' } }"
+                            itemScriptorAtributo.ObjetoParametros = null;
+                            if (!String.IsNullOrEmpty(itemScriptorAtributo.JsonFormParametros))
+                            {
+                                itemScriptorAtributo.ObjetoParametros = Newtonsoft.Json.JsonConvert.DeserializeObject<ScriptorDatoParametros>(itemScriptorAtributo.JsonFormParametros);
+                            }
+                        }
+                        if (itemScriptorAtributo.ObjetoParametros == null)
+                        {
+                            itemScriptorAtributo.ObjetoParametros = new ScriptorDatoParametros();
+                        }
+                        if (!String.IsNullOrEmpty(itemScriptorAtributo.ObjetoParametros.Clase))
+                        {
+                            itemScriptorAtributo.ClaseAtributo = itemScriptorAtributo.ObjetoParametros.Clase;
+                        }
+                        else
+                        {
+                            itemScriptorAtributo.ClaseAtributo = "col-md-12";
+                        }
+                        if (!String.IsNullOrEmpty(itemScriptorAtributo.ObjetoParametros.ClaseControl))
+                        {
+                            itemScriptorAtributo.ClaseAtributoControl = itemScriptorAtributo.ObjetoParametros.ClaseControl;
+                        }
+                        else
+                        {
+                            itemScriptorAtributo.ClaseAtributoControl = "col-md-6";
+                        }
+                        if (Request.QueryString["idc"] == null)
+                        {
+                            itemScriptorAtributo.Otros = new
+                            {
+                                Valor = "",
+                                JSON_DATA = "",
+                                JSON_COLUMNAS = ""
+                            };
+                        }
+                        else
+                        {
+                            itemScriptorAtributo.Otros = new
+                                {
+                                    Valor = itemchildren1.InnerText,
+                                    JSON_DATA = "",
+                                    JSON_COLUMNAS = ""
+                                };
+                        }
+                        if (itemScriptorAtributo.Tipo == "content_insert")
+                        {
+                                try
+                                {
+                                        string json_data = "[";
+                                        string json_columnas = "{";
+
+                                        foreach (XmlNode itemchildren2 in itemchildren1.ChildNodes)
+                                        {
+                                            if (itemchildren2.Name == "scrExpandedContent")
+                                            {
+                                                string idcontenido = "";
+                                                string tituloContenido = "";
+                                                string idCanalContenido = "";
+                                                idCanalContenido = (itemchildren2.Attributes["channel"]).Value;
+                                                itemScriptorAtributo.ListaValoresDetalle.IdCanal=idCanalContenido;
+                                                if (itemScriptorAtributo.CriterioControl == "specific_dropdownlist")
+                                                {
+                                                    if (Request.QueryString["idc"] != null)
+                                                    {
+                                                        idcontenido = (itemchildren2.Attributes["id"]).Value;                                                    
+                                                        tituloContenido = (itemchildren2.Attributes["title"]).Value;
+                                                    }
+                                                    idCanalContenido = (itemchildren2.Attributes["channel"]).Value;
+                                                    itemScriptorAtributo.ListaValoresDetalle.Add(new ValoresDetalleAtributo()
+                                                    {
+                                                        Id = idcontenido,
+                                                        Nombre = tituloContenido.Replace("(Publicado)", "").Replace("(Published)", ""),
+                                                        IdCanal = idCanalContenido
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    idCanalContenido = (itemchildren2.Attributes["channel"]).Value;
+                                                    itemScriptorAtributo.ListaValoresDetalle.IdCanal=idCanalContenido;
+                                                    foreach (XmlNode itemchildren3 in itemchildren2.ChildNodes)
+                                                    {
+                                                        if (Request.QueryString["idc"] != null)
+                                                        {
+                                                            tituloContenido = (itemchildren3.Attributes["channeltitle"]).Value;
+                                                            idcontenido = (itemchildren3.Attributes["contentid"]).Value;
+                                                            itemScriptorAtributo.ListaValoresDetalle.Add(new ValoresDetalleAtributo()
+                                                            {
+                                                                Id = idcontenido,
+                                                                Nombre = tituloContenido
+                                                            });
+                                                        }
+                                                    }
+                                                }
+                                                if (itemchildren2.ChildNodes.Count > 0  && itemScriptorAtributo.CriterioControl == "specific")
+                                                {
+                                                    if (itemchildren2.ChildNodes[0].ChildNodes.Count > 0)
+                                                    {
+                                                        XmlNode xmlparts = itemchildren2.ChildNodes[0].ChildNodes[0];
+                                                        json_data = json_data + "{";
+                                                        json_columnas = "[";
+                                                        string str_datoTMP = String.Format("\\\"{0}\\\":\\\"{1}\\\",", "Id", itemchildren2.Attributes["id"].Value); 
+                                                        json_data = json_data + str_datoTMP;
+                                                        foreach (XmlNode partsCampo in xmlparts.ChildNodes)
+                                                        {
+                                                            if (!(partsCampo.Name == "owner_list" || partsCampo.Name == "channel_list"))
+                                                            {
+                                                                string str_dato = String.Format("\\\"{0}\\\":{1},", partsCampo.Name, (partsCampo.Attributes["field_type"].Value=="checkbox"?(partsCampo.InnerText=="1"?"\\\"1\\\"":"\\\"0\\\""):"\\\""+partsCampo.InnerText+"\\\""));
+                                                                string str_tipo_columna = "{" + String.Format("'NombreColumna': '{0}','IdColumna': '{1}', 'Tipo': '{2}', 'SoloLectura': true, 'Visible': true", partsCampo.Attributes["prompt"].Value, partsCampo.Name, partsCampo.Attributes["field_type"].Value) + "},";
+                                                                json_data = json_data + str_dato;
+                                                                json_columnas = json_columnas + str_tipo_columna;
+                                                            }
+                                                        }
+                                                        if(json_data.Length>0)
+                                                        {
+                                                            json_data=json_data.Substring(0,json_data.Length-1);
+                                                        }
+                                                        json_data = json_data + "},";
+                                                        if (json_columnas.Length > 0)
+                                                        {
+                                                            json_columnas = json_columnas.Substring(0, json_columnas.Length - 1);
+                                                        }
+                                                        json_columnas = json_columnas + "]";
+                                                       
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                        if(json_data.Length>0)
+                                        {
+                                            json_data=json_data.Substring(0,json_data.Length-1);
+                                        }
+                                        json_data = json_data + "]";
+                                        json_columnas = json_columnas + "";
+
+                                        if (Request.QueryString["idc"] == null)
+                                        {
+                                            json_data="[]";
+                                        }
+                                        itemScriptorAtributo.Otros = new
+                                        {
+                                            JSON_DATA = json_data,
+                                            JSON_COLUMNAS = json_columnas,
+                                            Valor=""
+                                        };
+                                }
+                                catch (Exception ex)
+                                {
+                                    @:<div>ERROR</div>@ex.Message
+                                }
+                        }                           
+                        else if (itemScriptorAtributo.Tipo == "form_div")
+                        {
+
+                            scriptorFormulario.ListaDivisiones.Add(scriptorDivisiones);
+                            scriptorDivisiones = new ScriptorDivisiones();
+                            scriptorDivisiones.TituloDivision = itemScriptorAtributo.NombreFormulario;
+                            scriptorDivisiones.ListaAtributos = new List<ScriptorAtributo>();
+                        }
+                        
+                        if(itemScriptorAtributo.NombreCampo!=null)
+                        {
+                            if (!(itemScriptorAtributo.NombreCampo == "channel_list" || itemScriptorAtributo.NombreCampo == "owner_list" || itemScriptorAtributo.Tipo == "form_div"))
+                            {
+                                    scriptorDivisiones.ListaAtributos.Add(itemScriptorAtributo);
+                            }
+                        }
+                    }
+
+                }
+
+                scriptorFormulario.ListaDivisiones.Add(scriptorDivisiones);
+            }
+        }
+        catch (Exception ex)
+        {
+    @:<div>ERROR</div>@ex.Message
+          
+        }
+    }
+
+    if (scriptorFormulario.ListaDivisiones != null)
+    {
+        foreach (ScriptorDivisiones itemDivisiones in scriptorFormulario.ListaDivisiones)
+        {
+            if (itemDivisiones.TituloDivision != scriptorFormulario.ListaDivisiones.FirstOrDefault().TituloDivision)
+            {
+    @:<div><div class="block_cab block_cab_active">
+@:           <h2>
+                 @:               <span>@itemDivisiones.TituloDivision</span></h2>
+                 @:           <h3><span></span></h3>
+                 @:           <div class="acordeon">
+                 @:           </div>
+                 @:</div>
+                  if (itemDivisiones.TituloDivision != scriptorFormulario.ListaDivisiones.LastOrDefault().TituloDivision)
+                  {
+                    @:<div id="ContentListado" class="block_content" style="">
+                }
+                  else
+                  {
+                    @:<div id="ContentListado" class="block_content" style="border-bottom:1px solid #00007f !important">
+                }
+                 @:           <div class="form_section">
+                 @:               <div class="forms2">
+            }
+            foreach (ScriptorAtributo item in itemDivisiones.ListaAtributos)
+            {
+                string atrSoloLectura = "ng-disabled=(FlgHabilitarEdicion==false||$root.ObjetosFormulario.Interfaz.Disabled" + item.NombreCampo + ")";
+                string loadSoloLectura = "$root.ObjetosFormulario.Interfaz.Disabled" + item.NombreCampo + "=false";
+                string datavalrequired = "";
+                string hayvalidaciones = "false";
+                if (item.EsOpcional == "0")
+                {
+                    hayvalidaciones = "true";
+                }
+                if (item.Tipo == "content_insert" && item.ListaValoresDetalle != null)
+                {
+                    if (item.CriterioControl == "specific")
+                    {
+                            @:<div ng-load="GrabarElemento('@(item.NombreCampo)Atributo.IdCanal','@item.ListaValoresDetalle.IdCanal');">
+                    }
+                    if (item.CriterioControl == "specific_dropdownlist" && item.ListaValoresDetalle.FirstOrDefault()!=null)
+                    {
+                            @:<div ng-load="GrabarElemento('@(item.NombreCampo)Atributo.Nombre','@item.ListaValoresDetalle.FirstOrDefault().Nombre');GrabarElemento('@(item.NombreCampo)Atributo.IdCanal','@item.ListaValoresDetalle.IdCanal');">
+                    }
+                }
+                else
+                {
+                                    @:<div ng-load="">
+                }
+                @:</div>
+                @:<div class="col-md-12">
+                                if (item.Tipo == "checkbox")
+                                {
+                                    <div class="@item.ClaseAtributo" data-field-name="$root.DatosFormulario.@item.NombreCampo" style="display:block" ng-load="@loadSoloLectura">
+                                              <div class="col-md-2">
+                                        <label for="@item.NombreCampo" style="text-align:left">@item.NombreFormulario:</label>
+                                              </div>
+                                              <div class="@item.ClaseAtributoControl">
+                                        <input @atrSoloLectura ng-model="$root.DatosFormulario.@item.NombreCampo" type="checkbox" id="@item.NombreCampo" name="$root.DatosFormulario.@item.NombreCampo" value="@item.Otros.Valor" data-val="@hayvalidaciones" data-val-required="@datavalrequired">
+                                              </div>
+
+
+                                        <div class="caja11 msgerror @item.NombreCampo">
+                                            <span class="field-validation-valid msgerror" data-valmsg-for="$root.DatosFormulario.@item.NombreCampo" data-valmsg-replace="true" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                    </div>
+                                }
+                                if (item.Tipo == "title" || item.Tipo == "textline")
+                                {
+                                    datavalrequired = "Ingrese el " + item.NombreFormulario;
+                                    //Textbox Input              
+                                    <div class="@item.ClaseAtributo" data-field-name="$root.DatosFormulario.@item.NombreCampo" style="display:block" ng-load="@loadSoloLectura">
+                                       <div class="col-md-2">
+                                        <label for="@item.NombreCampo" style="text-align:left">@item.NombreFormulario:</label>
+                                       </div>
+                                       <div class="@item.ClaseAtributoControl">
+                                        <input @atrSoloLectura class="InputTEXT_01_GEN" ng-model="$root.DatosFormulario.@item.NombreCampo" style="color: rgb(128, 128, 128);" maxlength="@item.CantidadCaracteres" type="text" name="$root.DatosFormulario.@item.NombreCampo" id="@item.NombreCampo" value="@item.Otros.Valor" data-val="@hayvalidaciones" placeholder="@item.Descripcion" data-val-required="@datavalrequired">
+                                       </div>
+                                    </div>
+                                        <div class="caja11 msgerror @item.NombreCampo">
+                                            <span class="field-validation-valid msgerror" data-valmsg-for="$root.DatosFormulario.@item.NombreCampo" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                }
+                                if (item.Tipo == "content_insert")
+                                {
+                                    datavalrequired = "Ingrese " + item.NombreFormulario;
+
+                                    if (item.CriterioControl == "specific_dropdownlist" && item.ObjetoParametros.ListaOrigenDestino != null)
+                                    {
+                                    <div class="@item.ClaseAtributo" data-field-name="$root.DatosFormulario.@(item.NombreCampo)" style="display:block" ng-load="@(loadSoloLectura)">
+                                          <div class="col-md-2">
+       		                                 <label for="@(item.NombreCampo)" class="" style="text-align:left">@(item.NombreFormulario):</label>
+                                          </div>
+                                          <div class="@item.ClaseAtributoControl">
+                                            <input type="hidden" ng-model="$root.DatosFormulario.@(item.NombreCampo)" />
+                                            <input  ng-disabled="true" ng-disabled="true" ng-model="$root.DatosFormulario.@(item.NombreCampo)Atributo.Nombre" class="InputTEXT_01_GEN " style="width:92%!important" maxlength="@item.CantidadCaracteres" type="text" name="$root.DatosFormulario.@(item.NombreCampo)" id="@item.NombreCampo" data-val="@hayvalidaciones" placeholder="@item.Descripcion" data-val-required="@datavalrequired" >
+                                            <div id="Div@(item.NombreCampo)" style="float: right">
+                                                <input type="image" ng-disabled="(FlgHabilitarEdicion==false||$root.ObjetosFormulario.Interfaz.Disabled@(item.NombreCampo))" id="btn@(item.NombreCampo)" 
+                                                    ng-click="BuscarGenerico_Click('DatosFormulario','@(item.NombreCampo)',@(Newtonsoft.Json.JsonConvert.SerializeObject(item.ObjetoParametros.ListaOrigenDestino)),'@(item.ObjetoParametros.UrlBusqueda)','@(item.ObjetoParametros.Titulo)')"  class="imageButton" src="http://seguimientopedidos.ransa.net/bundles/5f9615e8d51557e5beb5b99cb4c3f03c/faffabed-c58a-4d3d-94e3-5237ee4668c4//images/buscar.png" style="border-width: 0px;">
+                                            </div>
+		                                </div>
+
+                                    </div>
+                                        <div class="caja11 msgerror @item.NombreCampo">
+                                            <span class="field-validation-valid msgerror" data-valmsg-for="$root.DatosFormulario.@(item.NombreCampo)" data-valmsg-replace="true"></span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        if (item.ObjetoParametros != null)
+                                        {
+                                            if (item.ObjetoParametros.ObjGrilla != null)
+                                            {
+                                                @:<div id="Div@(item.NombreCampo)"></div>
+    		                                    @:<script>
+    		                                         @:$("#@(item.ObjetoParametros.ObjGrilla)").appendTo("#Div@(item.NombreCampo)")
+                                                @:</script>                 
+                                            }
+                                            else
+                                            {
+                                                <div class="block_content" style="width:@(item.ObjetoParametros.AnchoMaximo);position:relative;border:0px solid!important">
+                                                 <div class='table-responsive' style="overflow: hidden;">
+                                                    <ng-jqgrid config="config"
+                                                               addnew="true"
+                                                               modeldata="$root.DatosFormulario.@(item.NombreCampo)"
+                                                               gridid="grilla@(item.NombreCampo)"
+                                                               pagerid="grilla@(item.NombreCampo)_pager"
+                                                               api="gridapi@(item.NombreCampo)"
+                                                               flgocultarbarrapaginado="1"
+                                                               idgrilla=""
+                                                               jsoncolumnas="@(Html.Raw(item.Otros.JSON_COLUMNAS))"
+                                                               altogrilla="100px"
+                                                               idmarcarprimerresgistro="0" url=""
+                                                               flgcargargrilla="1">
+
+                                                        <table id="grilla@(item.NombreCampo)"></table>
+                                                        <div id="grilla@(item.NombreCampo)_pager"></div>
+                                                    </ng-jqgrid>
+                                                </div>
+                                                 </div>
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                                if (item.Tipo == "dropdownlist")
+                                {
+                                    datavalrequired = "Seleccione el " + item.NombreFormulario;
+                                    //Combobox Combobox 
+                                    <div class="@item.ClaseAtributo" data-field-name="$root.DatosFormulario.@item.NombreCampo" style="display:block;" ng-load="@loadSoloLectura">
+                                        <label for="$root.DatosFormulario.@item.NombreCampo" style="text-align:left ;width:30%">@item.NombreFormulario:</label>
+                                        <select  @atrSoloLectura ng-model="$root.Item.@item.NombreCampo" value="@item.Otros.Valor" data-val-required="@datavalrequired">
+                                            @if (item.ValorCombo != null)
+                                            {
+                                                string[] valores = item.ValorCombo.Replace("|||", "|").Split(';');
+                                                if (valores.Length > 0)
+                                                {
+                                                    foreach (string elemento in valores)
+                                                    {
+                                                        string[] dataCombo = elemento.Split('|');
+                                                        if (dataCombo.Length > 1)
+                                                        {
+                                                            string codigo = dataCombo[0];
+                                                            string descripcion = dataCombo[1];
+                                                <option value="@codigo">@descripcion</option>
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        <div class="caja11 msgerror @item.NombreCampo">
+                                            <span class="field-validation-valid msgerror" data-valmsg-for="$root.DatosFormulario.@item.NombreCampo" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </div>
+
+                                }
+                                if (item.Tipo == "html")
+                                {
+                                    //Editor HTML     
+                                                <div  data-field-name="@item.NombreCampo" style="display:block">
+                                                    <label for="$root.DatosFormulario.@item.NombreCampo" style="text-align:left ;width:30%">@item.NombreFormulario:</label>
+                                                    <main>
+                                                                                                                                                                          <div>
+                                                                                                                                                                              <div class="grid-container">
+                                                                                                                                                                                  <div class="grid-width-100" ng-load="@loadSoloLectura">                                                                      															
+                                                                                                                                                                                        <textarea @atrSoloLectura name="editor" ck-editor="editorOptions" ng-model="$root.DatosFormulario.@item.NombreCampo"></textarea>
+                                                                                                                                                                                  </div>
+                                                                                                                                                                              </div>
+                                                                                                                                                                           </div>
+                                                                                                                                                                    </main>
+                                                </div>
+                                                <div class="caja11 msgerror @item.NombreCampo">
+                                                    <span class="field-validation-valid msgerror" data-valmsg-for="$root.DatosFormulario.@item.NombreCampo" data-valmsg-replace="true"></span>
+                                                </div>
+                                }
+                            @:</div>
+            }
+            if (itemDivisiones.TituloDivision != scriptorFormulario.ListaDivisiones.FirstOrDefault().TituloDivision)
+            {
+                          @:</div></div></div></div>
+                    }
+        }
+        if (scriptorFormulario.ListaDivisiones.Count == 0)
+        {
+                @:<div>Debe crear un registro por backoffice por ser la primera vez.</div>
+                                    }
+
+
+    }
+}
+

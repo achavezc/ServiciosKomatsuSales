@@ -1,0 +1,30 @@
+<div class="block_menu">
+    <div style="max-width: 100%; height: 100%">
+        <div class="boton">
+  <button class="SeparatorLeft boton1Style boton1 ng-show" ng-click="Grabar_Click();" ng-class="{'disabled_image': FlgHabilitarEdicion==false&&FlgModoFormulario=='Modificar'}" ng-disabled="FlgHabilitarEdicion==false&&FlgModoFormulario=='Modificar'">
+                <span class="boton1Span">
+                    <img class="boton1Img csBtnGuardar" alt="Grabar" src="http://seguimientopedidos.ransa.net/bundles/d41d8cd98f00b204e9800998ecf8427e/faffabed-c58a-4d3d-94e3-5237ee4668c4/Images/formatmap32x32.png">
+                </span>
+                <span class="boton1txt">Grabar</span>
+            </button>
+        </div>
+		<div class="boton">
+            <button class="SeparatorLeft boton1Style boton1 ng-show" ng-click="Modificar_Click();" ng-hide="FlgModoFormulario=='Nuevo'" 
+  				 ng-class="{'disabled_image': FlgHabilitarEdicion==true}" ng-disabled="FlgHabilitarEdicion==true">
+                <span class="boton1Span">
+                    <img class="boton1Img csBtnModificar" alt="Modificar" src="http://seguimientopedidos.ransa.net/bundles/d41d8cd98f00b204e9800998ecf8427e/faffabed-c58a-4d3d-94e3-5237ee4668c4/Images/formatmap32x32.png">
+                </span>
+                <span class="boton1txt">Modificar</span>
+            </button>
+        </div>
+        <div class="boton">
+            <button class="SeparatorLeft boton1Style boton1" ng-click="Salir_Click();">
+            <span class="boton1Span">
+            <img class="boton1Img csBtnSalir" alt="Salir" src="http://seguimientopedidos.ransa.net/bundles/d41d8cd98f00b204e9800998ecf8427e/faffabed-c58a-4d3d-94e3-5237ee4668c4/Images/formatmap32x32.png">
+            </span>
+            <span class="boton1txt">Salir</span>
+            </button>
+        </div>
+    </div>
+</div>
+

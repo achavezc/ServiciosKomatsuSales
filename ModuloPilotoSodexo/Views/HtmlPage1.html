@@ -1,0 +1,176 @@
+﻿
+
+  
+<div class="block" style=";max-width:800px ">
+ <div ng-app=&quot;app&quot; ng-controller=RegistroTipoContenedorController>
+          <div id="seccion-1">
+          
+<!--START TEMPLATE 86403f18-2fa8-45cb-89b1-4d40e4bbe275:97cc4d32-8aa3-448d-b356-c3c8d99d4303:251734de-3a5f-4563-a35f-aabbf7679c64:3c2e55fc-70b4-43e4-9030-ba60f79f2c32:NewCalculadorWeb_Secciones-->
+
+
+
+  <div style="display:none">0</div>
+  
+    
+
+<!--START TEMPLATE e28e510c-662b-4dc9-be4b-f29f740e1381:d3bfcbb4-d7fd-4db4-b032-4d42452ce7b0:74f5ba8d-0c00-4011-a97a-9c4f2a279f42:8065d9ec-e50b-4b4c-827a-caba4225da94:AC_BotoneraGrabarMaestro-->
+<div class="block_menu">
+            <div style="max-width: 100%; height: 100%">
+                    <div class="boton ng-hide" ng-show="FlagMostrarBotonGuardar">
+                        <button class="SeparatorLeft boton1Style boton1" ng-Click="Guardar_Click(); focusInicio=false" style="">
+                            <span class="boton1Span">
+                                <img class="boton1Img csBtnGuardar" alt="Guardar" src="/bundles/d41d8cd98f00b204e9800998ecf8427e/faffabed-c58a-4d3d-94e3-5237ee4668c4/Images/formatmap32x32.png">
+                            </span>
+                            <span class="boton1txt">Guardar</span>
+                        </button>
+                    </div>
+  
+  					<div class="boton ng-hide" ng-show="FlagMostrarBotonModificar">
+                        <button class="SeparatorLeft boton1Style boton1" ng-Click="Modificar_Click();" style="">
+                            <span class="boton1Span">
+                                <img class="boton1Img csBtnModificar" alt="Modificar" src="/bundles/d41d8cd98f00b204e9800998ecf8427e/faffabed-c58a-4d3d-94e3-5237ee4668c4/Images/formatmap32x32.png">
+                            </span>
+                            <span class="boton1txt">Modificar</span>
+                        </button>
+                    </div>
+                  
+                    <div class="boton">
+                        <button class="SeparatorLeft boton1Style boton1" ng-Click="Salir_Click();" style="">
+                            <span class="boton1Span">
+                                <img class="boton1Img csBtnSalir" alt="Salir" src="/bundles/d41d8cd98f00b204e9800998ecf8427e/faffabed-c58a-4d3d-94e3-5237ee4668c4/Images/formatmap32x32.png">
+                            </span>
+                            <span class="boton1txt">Salir</span>
+                        </button>
+                    </div>
+            </div>
+        </div>
+
+
+<!--END TEMPLATE e28e510c-662b-4dc9-be4b-f29f740e1381:d3bfcbb4-d7fd-4db4-b032-4d42452ce7b0:74f5ba8d-0c00-4011-a97a-9c4f2a279f42:8065d9ec-e50b-4b4c-827a-caba4225da94:AC_BotoneraGrabarMaestro-->
+    
+<!--END TEMPLATE 86403f18-2fa8-45cb-89b1-4d40e4bbe275:97cc4d32-8aa3-448d-b356-c3c8d99d4303:251734de-3a5f-4563-a35f-aabbf7679c64:3c2e55fc-70b4-43e4-9030-ba60f79f2c32:NewCalculadorWeb_Secciones-->
+
+          </div> 
+          <div id="seccion-2">
+          
+<!--START TEMPLATE 86403f18-2fa8-45cb-89b1-4d40e4bbe275:97cc4d32-8aa3-448d-b356-c3c8d99d4303:7dbfeaac-f3e6-4f85-ba8d-eb62aedc55ea:3c2e55fc-70b4-43e4-9030-ba60f79f2c32:NewCalculadorWeb_Secciones-->
+
+
+
+  <div style="display:none">0</div>
+  
+    
+
+<!--START TEMPLATE 631db761-87e9-4fab-99af-f7efa29b3463:7732d616-ded7-4ca7-be93-85137e68463c:693f896f-1e79-48ac-bb79-1023a8609428:65fef5c2-a578-427f-a73c-b6127938e8e4:AC_Maestro_TipoContenedor_Registro-->
+<div>
+    <div class="block_cab block_cab_active">
+        <h2>
+            <span>Datos Tipo Contenedor</span>
+        </h2>
+        <h3></h3>
+        <div class="acordeon">
+        </div>
+    </div>
+    <form id="AdministrarTipoContenedorFrm" name="AdministrarTipoContenedorFrm">
+        <div class="block_content" style="width:100%">
+            <div class="row">
+                <div class="col-md-12 row">
+                    <div class="col-md-4">
+                        Línea
+                    </div>
+                    <div class="col-md-8">
+                        <select ng-model="$root.DatosFormulario.AdministrarTipoContenedor.RegistroDatos.CodigoLinea"
+                                data-val="true"
+                                ng-disabled="$root.DatosFormulario.AdministrarTipoContenedor.Datos.Habilitado=='False' || FlagEditing==false"
+                                data-bind="value: $root.DatosFormulario.AdministrarTipoContenedor.RegistroDatos.CodigoLinea"
+                                ng-options="linea.Codigo as linea.Nombre for linea in $root.DatosFormulario.AdministrarTipoContenedor.Datos.Lineas"
+                                class="InputSELECT_01">
+                            <option value="">[Seleccione]</option>
+                        </select>
+                        <div class="caja11 msgerror CodigoLinea">
+                            <span class="field-validation-valid msgerror" data-valmsg-for="$root.DatosFormulario.AdministrarTipoContenedor.Filtro.CodigoLinea" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 row">
+                    <div class="col-md-4">
+                        Clase Contenedor
+                    </div>
+                    <div class="col-md-8">
+                        <select ng-model="$root.DatosFormulario.AdministrarTipoContenedor.RegistroDatos.CodigoClaseContenedor"
+                                ng-disabled="FlagEditing==false"
+                                ng-options="tipocont.CodigoClaseContenedor as tipocont.Descripcion for tipocont in $root.DatosFormulario.AdministrarTipoContenedor.DatosIndex.ClaseContenedorList"
+                                class="InputSELECT_01">
+                            <option value="">[Seleccione]</option>
+                        </select>
+                        <div class="caja11 msgerror CodigoClaseContenedor">
+                            <span class="field-validation-valid msgerror" data-valmsg-for="$root.DatosFormulario.AdministrarTipoContenedor.RegistroDatos.CodigoClaseContenedor" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 row">
+                    <div class="col-md-4">
+                        Código Tipo Contenedor
+                    </div>
+                    <div class="col-md-8">
+                        <input class="InputTEXT_05"
+                               type="text" ng-enter="Enter()" max="4" maxlength="4"
+                               ng-disabled="FlagEditing==false"
+                               ng-model="$root.DatosFormulario.AdministrarTipoContenedor.RegistroDatos.CodigoTipoContenedor"/>
+                        <div class="caja11 msgerror CodigoTipoContenedor">
+                            <span class="field-validation-valid msgerror" data-valmsg-for="$root.DatosFormulario.AdministrarTipoContenedor.RegistroDatos.CodigoTipoContenedor" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 row">
+                    <div class="col-md-4">
+                        Nombre Tipo Contenedor
+                    </div>
+                    <div class="col-md-8">
+                        <input class="InputTEXT_05" max="100" maxlength="100"
+                               type="text" ng-enter="Enter()"
+                               ng-model="$root.DatosFormulario.AdministrarTipoContenedor.RegistroDatos.Descripcion"/>
+                        <div class="caja11 msgerror Descripcion">
+                            <span class="field-validation-valid msgerror" data-valmsg-for="$root.DatosFormulario.AdministrarTipoContenedor.RegistroDatos.Descripcion" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 row" style="display: none">
+                    <div class="col-md-4">
+                        Estado Registro
+                    </div>
+                    <div class="col-md-8">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <input type="radio" name="activo" ng-enter="Enter()"
+                                       value={{$root.DatosFormulario.AdministrarTipoContenedor.RegistroDatos.EstadoRegistroActivo}}
+                                       ng-model="$root.DatosFormulario.AdministrarTipoContenedor.RegistroDatos.EstadoRegistro"
+                                       class="ng-valid ng-dirty"
+                                       ng-disabled="FlagEditing==false"
+                                       checked/>
+                                <label>Activo</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="radio" name="inactivo" ng-enter="Enter()"
+                                       value={{$root.DatosFormulario.AdministrarTipoContenedor.RegistroDatos.EstadoRegistroInactivo}}
+                                       ng-model="$root.DatosFormulario.AdministrarTipoContenedor.RegistroDatos.EstadoRegistro"
+                                       ng-disabled="FlagEditing==false"
+                                       class="ng-valid ng-dirty"/>
+                                <label>Inactivo</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--END TEMPLATE 631db761-87e9-4fab-99af-f7efa29b3463:7732d616-ded7-4ca7-be93-85137e68463c:693f896f-1e79-48ac-bb79-1023a8609428:65fef5c2-a578-427f-a73c-b6127938e8e4:AC_Maestro_TipoContenedor_Registro-->
+    
+<!--END TEMPLATE 86403f18-2fa8-45cb-89b1-4d40e4bbe275:97cc4d32-8aa3-448d-b356-c3c8d99d4303:7dbfeaac-f3e6-4f85-ba8d-eb62aedc55ea:3c2e55fc-70b4-43e4-9030-ba60f79f2c32:NewCalculadorWeb_Secciones-->
+
+          </div> 
+ </div> 
+</div>
+

@@ -1,0 +1,115 @@
+@using Viatecla.Factory.Scriptor
+@model ScriptorContent
+@{
+  Layout=null;
+}
+
+//$(function(){
+  var menujson1=@Html.Raw(ViewBag.MenuPrincipal);
+  var strmenu="";
+  var strmenuResponsive="";
+  
+  
+  doMenu={
+    hacermenu:function(menujson){
+      var esto=this;
+      var cadena="";
+      if(menujson.length>0){
+        cadena+='<ul class="nav nav-pills">';
+        $.each(menujson,function(k,v){
+          if(esto.tieneHijos(v) || v.Clase==="Menu"){
+            if(v.Url==="") v.Url="#";
+            var cadenatmp="<li><a href=\"" + v.Url + "\">" + v.NombreControl + "</a>";
+            if(v.Opciones != null && esto.contarMenu(v.Opciones).length>0){
+              cadenatmp+=esto.hacermenu(esto.contarMenu(v.Opciones));
+            }
+            cadenatmp+="</li>";
+  			cadenatmp+="</li>";  
+  			cadena+=cadenatmp;
+          }
+        });
+        cadena+='</ul>';
+      }
+      return cadena;
+    },
+    contarMenu:function(opciones){
+      var esto=this;
+      var menus=[];
+      $.each(opciones,function(k,v){
+        if(v.Clase==="Menu")
+          menus.push(v);
+      });
+      return menus;
+    },
+    tieneHijos:function(menu){
+      var esto=this;
+      //contar opciones del tipo menu
+      contMenu=0;
+      $.each(menu.Opciones,function(k,v){
+        if(v.Clase==="Menu")
+          contMenu++;
+      });
+      if(contMenu>0){
+        var encontrado=false;
+        $.each(menu.Opciones,function(k,v){
+          if(esto.tieneHijos(v)){
+            encontrado=true;
+          }
+        });
+        return encontrado;
+      }
+      else{
+        if (menu.ControlPadre===null || menu.ControlPadre===undefined || menu.ControlPadre==="") {
+          return false;
+        }
+        else{
+          return (menu.Clase==="Menu" && !(menu.Url===null || menu.Url===undefined || menu.Url===""));
+        }
+      }
+    }
+  };
+  strmenu=doMenu.hacermenu(menujson1);
+  
+//});
+
+//hago el menu derecho
+var menujson2=@Html.Raw(ViewBag.MenuDerecho);
+var linkjson2=@Html.Raw(ViewBag.LinkDerecho);
+var EsExterno="@Html.Raw(ViewBag.EsExterno)";
+var contenidoMenu="";
+var contenidoMenuResponsive="";
+var nombreUsuario="";
+          
+          
+nombreUsuario="@Html.Raw(@ViewBag.NombreUsuario)";
+          
+$(".head_fila.menupadding").append(nombreUsuario);
+
+
+contenidoMenu+='<ul class="nav nav-pills">';
+for(i=0;i<menujson2.length;i++){
+  	var tmphtml='<li><a href="'+linkjson2[i]+'">'+menujson2[i]+'</a></li>';
+	contenidoMenu+=tmphtml;
+  	contenidoMenuResponsive+=tmphtml;
+}
+contenidoMenu+='</ul>';
+contenidoMenuResponsive+="<li><a href=\"#\"> "+nombreUsuario+"</a></li>";
+
+
+$("#menudesplegable").html(strmenu);
+strmenuResponsive  = "<ul class=\"nav nav-pills\">"+$("#menudesplegable ul:first").html()+contenidoMenuResponsive+"</ul>";
+$("#menudesplegable ul:first").attr("id","menu");
+
+
+
+$(".SeparatorLeft2 #menuuser").html(contenidoMenu);
+if(EsExterno.toLowerCase()==="true")
+$(".SeparatorLeft2 #menuuser").addClass("EsExterno");
+
+$(".SeparatorLeft2").css({
+"display":"block"
+});
+
+$("#menuresponsive").html(strmenuResponsive);
+   
+    
