@@ -17,12 +17,12 @@ namespace RANSA.MCIP.LogicaNegocio.MaestrosMasivos
             ResponseClienteMasivoDTO response = new ResponseClienteMasivoDTO();
             try
             {
-                var ListaCliente = new List<ClienteDTO>();
-                ListaCliente = request.RequestClienteMasivo;
-                ListaCliente.ForEach(delegate(ClienteDTO cliente)
-                {
-                    //response = servicioBL.RegistrarClienteMasivo(cliente);
-                });
+                //var ListaCliente = new List<ClienteDTO>();
+                //ListaCliente = request.RequestClienteMasivo;
+                //ListaCliente.ForEach(delegate(ClienteDTO cliente)
+                //{
+                //    //response = servicioBL.RegistrarClienteMasivo(cliente);
+                //});
             }
             catch (Exception ex)
             {
