@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace RANSA.MCIP.DTO.MaestrosMasivos.ClienteMasivo
 {
-    public class ResponseClienteMasivoDTO 
+    public class ResponseClienteMasivoDTO
     {
 
+        public Resultado Result { get; set; }
         public ResponseClienteMasivoDTO()
         {
-            this.Result = new Resultado();
+            Result = new Resultado();
+
         }
-        public Resultado Result { get; set; }
+
+
     }
 }

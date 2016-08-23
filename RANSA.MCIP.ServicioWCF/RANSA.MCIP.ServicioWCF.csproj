@@ -83,9 +83,9 @@
     <Compile Include="Comun\DetalleCatalogo\IDetalleCatalogoServicio.cs" />
     <Compile Include="Comun\Archivos\IAdjuntarArchivosServicio.cs" />
     <Compile Include="Comun\IComunServicio.cs" />
+    <Compile Include="Maestro Masivo\IMaestroMasivoService.cs" />
     <Compile Include="LogAttribute.cs" />
-    <Compile Include="MaestrosMasivos\IMaestroMasivoService.cs" />
-    <Compile Include="MaestrosMasivos\MaestroMasivoService.cs" />
+    <Compile Include="Maestro Masivo\MaestroMasivoService.cs" />
     <Compile Include="Maestros\IMaestroServicio.cs" />
     <Compile Include="Maestros\MaestroServicio.cs" />
     <Compile Include="Pedidos\IPedidoIndividualServicio.cs" />
