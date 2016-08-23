@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using RANSA.MCIP.DTO.Maestros;
 
 namespace ModuloPilotoSodexo.Proxy
 {
@@ -77,6 +78,16 @@ namespace ModuloPilotoSodexo.Proxy
             var url = ConfigurationManager.AppSettings["UrlRegistrarPedidoMasivo"];
 
             var response = DeserializarJSON<List<RequestRegistroPedidoIndividualDTO>, ResponseRegistarPedidoDTO>(request, url);
+            if (response == null)
+                throw new Exception(string.Format("Problemas con el servicio: {0}", url));
+
+            return response;
+        }
+        public ResponseObtenerCorrelativoMaestro ObtenerNumeroPedido(RequestObtenerCorrelativoMaestro request)
+        {
+            var url = ConfigurationManager.AppSettings["UrlObtenerNumeroPedido"];
+
+            var response = DeserializarJSON<RequestObtenerCorrelativoMaestro, ResponseObtenerCorrelativoMaestro>(request, url);
             if (response == null)
                 throw new Exception(string.Format("Problemas con el servicio: {0}", url));
 
