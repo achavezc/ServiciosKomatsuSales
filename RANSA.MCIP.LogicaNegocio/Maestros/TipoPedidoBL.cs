@@ -40,7 +40,7 @@ namespace RANSA.MCIP.LogicaNegocio
                     });
                 }
 
-                response.DefaultCodigoTipoPedido = lista.FirstOrDefault() != null ? lista.FirstOrDefault().CodigoTipoPedido : String.Empty;
+                response.DefaultCodigoTipoPedido = "";// lista.FirstOrDefault() != null ? lista.FirstOrDefault().CodigoTipoPedido : String.Empty;
                 response.estadoOperacion = ConstantesSistema.EstadoOperacionServicioCorrecto;
             }
             catch (Exception ex)
