@@ -150,20 +150,20 @@ namespace RANSA.MCIP.AccesoDatos.MaestrosMasivos
                 new SqlMetaData("CodigoCuenta", SqlDbType.Text),
                 new SqlMetaData("CodigoNegocio", SqlDbType.Text)
             );
-            foreach (MasivoClienteDTO ListaClienteitem in this)
+            foreach (MasivoMaterialDTO ListaMaterialitem in this)
             {
-                sqlDataRecord.SetString(0, ListaClienteitem.Direccion);
-                sqlDataRecord.SetString(1, ListaClienteitem.IdPais);
-                sqlDataRecord.SetString(2, ListaClienteitem.IdDepartamento);
-                sqlDataRecord.SetString(3, ListaClienteitem.IdProvincia);
-                sqlDataRecord.SetString(4, ListaClienteitem.IdDistrito);
-                sqlDataRecord.SetString(5, ListaClienteitem.FlagAnulacion);
-                sqlDataRecord.SetString(6, ListaClienteitem.CodigoTipoDocumento);
-                sqlDataRecord.SetString(7, ListaClienteitem.Nombre);
-                sqlDataRecord.SetString(8, ListaClienteitem.CodigoCliente);
-                sqlDataRecord.SetString(9, ListaClienteitem.NumDocumento);
-                sqlDataRecord.SetString(10, ListaClienteitem.CodigoCuenta);
-                sqlDataRecord.SetString(11, ListaClienteitem.CodigoNegocio);
+                //sqlDataRecord.SetString(0, ListaClienteitem.Direccion);
+                //sqlDataRecord.SetString(1, ListaClienteitem.IdPais);
+                //sqlDataRecord.SetString(2, ListaClienteitem.IdDepartamento);
+                //sqlDataRecord.SetString(3, ListaClienteitem.IdProvincia);
+                //sqlDataRecord.SetString(4, ListaClienteitem.IdDistrito);
+                //sqlDataRecord.SetString(5, ListaClienteitem.FlagAnulacion);
+                //sqlDataRecord.SetString(6, ListaClienteitem.CodigoTipoDocumento);
+                //sqlDataRecord.SetString(7, ListaClienteitem.Nombre);
+                //sqlDataRecord.SetString(8, ListaClienteitem.CodigoCliente);
+                //sqlDataRecord.SetString(9, ListaClienteitem.NumDocumento);
+                //sqlDataRecord.SetString(10, ListaClienteitem.CodigoCuenta);
+                //sqlDataRecord.SetString(11, ListaClienteitem.CodigoNegocio);
                 yield return sqlDataRecord;
             }
         }
