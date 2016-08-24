@@ -82,6 +82,7 @@
     <Compile Include="Pedidos\RequestRegistroPedidoIndividualViewModel.cs" />
     <Compile Include="Pedidos\ResponseBusquedaPedidoViewModel.cs" />
     <Compile Include="Pedidos\ResponseDetallePedidoViewModel.cs" />
+    <Compile Include="Pedidos\ResponseObtenerCorrelativoMaestroViewModel.cs" />
     <Compile Include="Pedidos\ResponseRegistarPedidoViewModel.cs" />
     <Compile Include="Pedidos\ResponseValidarCamposViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
