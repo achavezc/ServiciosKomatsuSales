@@ -20,6 +20,9 @@ namespace RANSA.MCIP.DTO.MaestrosMasivos.ClienteMasivo
         public string Nombre { get; set; }
         public string CodigoCliente { get; set; }
         public string NumDocumento { get; set; }
+        public string CodigoCuenta { get; set; }
+        public string CodigoNegocio { get; set; }
+        public string CodigoClienteTemp { get; set; }
 
     }
 }
