@@ -14,7 +14,7 @@ namespace RANSA.MCIP.LogicaNegocio
     public class TipoPedidoBL
     {
         private TipoPedidoDA objDA;
-
+        //ola
         public TipoPedidoBL()
         {
             objDA = new TipoPedidoDA(new ContextoParaBaseDatos());        
