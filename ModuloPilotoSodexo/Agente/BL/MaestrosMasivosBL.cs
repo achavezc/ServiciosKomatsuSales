@@ -83,7 +83,10 @@ namespace ModuloPilotoSodexo.Agente.BL
             var response = new ResponseClienteMasivoViewModel();
             try
             {
-                var requestAgente = GR.Scriptor.Framework.Helper.MiMapper<RequestMasivoClienteViewModel, RequestClienteMasivoDTO>(request);
+                //var requestAgentes = GR.Scriptor.Framework.Helper.MiMapper<RequestMasivoClienteViewModel, RequestClienteMasivoDTO>(request);
+                var requestAgente = new RequestClienteMasivoDTO();
+                requestAgente.ListaCliente = (from item in request.ListaCliente
+                                              select GR.Scriptor.Framework.Helper.MiMapper<MasivoClienteViewModel, MasivoClienteDTO>(item)).ToList();
                 var responseRegistroMasivoCliente = new MaestroMasivoProxyRest().RegistrarMasivoCliente(requestAgente);
                 response.Result.Satisfactorio = responseRegistroMasivoCliente.Result.Satisfactorio;
                 response.Result.Mensaje = responseRegistroMasivoCliente.Result.Mensaje;
