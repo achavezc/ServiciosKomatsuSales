@@ -66,10 +66,11 @@ namespace RANSA.MCIP.AccesoDatos.MaestrosMasivos
                 new SqlMetaData("IdDistrito", SqlDbType.Text),
                 new SqlMetaData("FlagAnulacion", SqlDbType.Text),
                 new SqlMetaData("CodigoTipoDocumento", SqlDbType.Text),
+                new SqlMetaData("Nombre", SqlDbType.Text),
                 new SqlMetaData("CodigoCliente", SqlDbType.Text),
-                new SqlMetaData("Nombre", SqlDbType.Text)
-                //new SqlMetaData("IdEsquema", SqlDbType.UniqueIdentifier), new SqlMetaData("IdCreator", SqlDbType.UniqueIdentifier),
-                //new SqlMetaData("EstadoFlujo", SqlDbType.Text), new SqlMetaData("IdCanal", SqlDbType.UniqueIdentifier)
+                new SqlMetaData("NumDocumento", SqlDbType.Text),
+                new SqlMetaData("CodigoCuenta", SqlDbType.Text),
+                new SqlMetaData("CodigoNegocio", SqlDbType.Text)
             );
             foreach (MasivoClienteDTO ListaClienteitem in this)
             {
@@ -80,8 +81,11 @@ namespace RANSA.MCIP.AccesoDatos.MaestrosMasivos
                 sqlDataRecord.SetString(4, ListaClienteitem.IdDistrito);
                 sqlDataRecord.SetString(5, ListaClienteitem.FlagAnulacion);
                 sqlDataRecord.SetString(6, ListaClienteitem.CodigoTipoDocumento);
-                sqlDataRecord.SetString(7, ListaClienteitem.CodigoCliente);
-                sqlDataRecord.SetString(8, ListaClienteitem.Nombre);
+                sqlDataRecord.SetString(7, ListaClienteitem.Nombre);
+                sqlDataRecord.SetString(8, ListaClienteitem.CodigoCliente);
+                sqlDataRecord.SetString(9, ListaClienteitem.NumDocumento);
+                sqlDataRecord.SetString(10, ListaClienteitem.CodigoCuenta);
+                sqlDataRecord.SetString(11, ListaClienteitem.CodigoNegocio);
                 yield return sqlDataRecord;
             }
         }

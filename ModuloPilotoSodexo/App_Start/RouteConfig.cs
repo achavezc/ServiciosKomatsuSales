@@ -46,6 +46,12 @@ namespace ModuloPilotoSodexo
               defaults: new { controller = "PedidoIndividual", action = "Index", id = UrlParameter.Optional }
           );
 
+        routes.MapRoute(
+           name: "MaestrosMasivos",
+           url: "MaestrosMasivos/{action}/{id}",
+           defaults: new { controller = "MaestrosMasivos", action = "Index", id = UrlParameter.Optional }
+        );
+
         }
         public static string GetIpAddress()  // Get IP Address
         {

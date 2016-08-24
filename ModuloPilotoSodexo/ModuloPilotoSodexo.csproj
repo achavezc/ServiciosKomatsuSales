@@ -63,6 +63,7 @@
     <Compile Include="App_Start\Helper\JsonExtensions.cs" />
     <Compile Include="App_Start\Helper\PaginacionDTO.cs" />
     <Compile Include="App_Start\Proxy\AdjuntarArchivosProxyRest.cs" />
+    <Compile Include="App_Start\Proxy\MaestroMasivoProxyRest.cs" />
     <Compile Include="App_Start\Proxy\MaestroProxyRest.cs" />
     <Compile Include="App_Start\Proxy\PedidoProxyRest.cs" />
     <Compile Include="App_Start\Proxy\ProxyRest.cs" />
@@ -113,36 +114,6 @@
     <Content Include="css\bootstrap\3.2.0\bootstrap.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Views\HtmlPage1.html" />
-    <Content Include="Views\Templates\calculadorweb_menuprop.badc6536-8b8e-4020-881a-29a2a150a402.61.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Templates\extranet_botonera_busquedaclasiva.5ece4a8b-17dc-4168-ae66-15cc5c6fe019.10.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Templates\extranet_footer.fef8aef1-c6e5-459d-8815-f83be9815f9d.40.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Templates\extranet_formulario.27ba5cf5-5a44-4198-bf8b-756f212f0e8f.14.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Templates\extranet_grillaangular.484dc879-3dc3-4bc8-bf94-62eead24715d.1.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Templates\extranet_header.e97c046d-1c1e-458f-bb93-9ddbdc8e04c5.156.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Templates\extranet_paginamaestrausuariologeado.1d6f660a-6bfb-4338-bb93-37b6f6e173f4.170.1346088378.es-PE.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Templates\extranet_paginamaestrausuariologeado.1d6f660a-6bfb-4338-bb93-37b6f6e173f4.170.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Templates\newcalculadorweb_secciones.86403f18-2fa8-45cb-89b1-4d40e4bbe275.1.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Templates\segpedido_referencias.71f46c18-9bb0-4bde-8f4e-4d6ec94a8387.101.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -160,6 +131,7 @@
     <Folder Include="Views\AdjuntarArchivos\" />
     <Folder Include="Views\MaestrosMasivos\" />
     <Folder Include="Views\Pedidos\" />
+    <Folder Include="Views\Templates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -265,31 +237,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Templates\extranet_bienvenido.2765f359-f1cb-44cc-9329-8495aa2adfe1.16.cshtml" />
-    <Content Include="Views\Templates\extranet_cargaformulariosaux.24381da8-04aa-46f5-ad39-8978223273a8.333.cshtml" />
-    <Content Include="Views\Templates\extranet_formulariologin.c59af217-b4e1-4e5d-a8a1-a42106e27420.127.cshtml" />
-    <Content Include="Views\Templates\extranet_formularioolvidocontrasena.a2f456b6-af03-48c1-b3bb-bce40d9b4237.34.cshtml" />
-    <Content Include="Views\Templates\extranet_paginaprincipal.eb62b75f-afc0-41f3-b638-b7bd429f3673.69.cshtml" />
-    <Content Include="Views\Templates\extranet_usuario_anonimo.b35c7515-54d7-4b49-a973-f227704df24f.136.1346088378.es-PE.cshtml" />
-    <Content Include="Views\Templates\extranet_usuario_anonimo.b35c7515-54d7-4b49-a973-f227704df24f.136.cshtml" />
-    <Content Include="Views\Templates\extranet_botoneragrabarclasica.320e360d-acb5-40b0-adde-0e8b7c15e637.14.cshtml" />
-    <Content Include="Views\Templates\extranet_templatescriptor.7523e2e7-b2af-4eaa-b663-5c08d6ecc636.184.cshtml" />
-    <Content Include="Views\Templates\formulariosscriptor.00ffb88b-cc2a-417f-8b86-c9a2df0a34df.237.cshtml" />
-    <Content Include="Views\Templates\extranet_formularioconsultadocprop.0d8c498d-feb4-48df-997b-f93aa09a0b12.241.cshtml" />
-    <Content Include="Views\Templates\extranet_formularioconsultadocpropaux.3499e410-55af-4cfb-9c2b-cabb3f290053.35.cshtml" />
-    <Content Include="Views\Templates\extranet_usuario_anonimo_error.d9354e9a-cfbc-4611-a9ec-123cd8cfd694.136.cshtml" />
-    <Content Include="Views\Templates\formulariosscriptor.00ffb88b-cc2a-417f-8b86-c9a2df0a34df.238.cshtml" />
-    <Content Include="Views\Templates\formulariosscriptor.00ffb88b-cc2a-417f-8b86-c9a2df0a34df.239.cshtml" />
-    <Content Include="Views\Templates\pilotosodexo_formularioinicio.f0fa074c-6d54-4afd-97f3-bb8b2bd3e682.202.cshtml" />
-    <Content Include="Views\Templates\extranet_grillas.aeaed314-010e-4cfb-840f-c4ac1aafa4ad.402.cshtml" />
-    <Content Include="Views\Templates\formulariosscriptor.00ffb88b-cc2a-417f-8b86-c9a2df0a34df.240.cshtml" />
-    <Content Include="Views\Templates\formulariosscriptor.00ffb88b-cc2a-417f-8b86-c9a2df0a34df.241.cshtml" />
-    <Content Include="Views\Templates\extranet_formulariopopup.34482ba7-ec4e-4b75-973f-58202f97a2e6.11.cshtml" />
-    <Content Include="Views\Templates\extranet_usuario_anonimo_error.d9354e9a-cfbc-4611-a9ec-123cd8cfd694.136.1346088378.es-PE.cshtml" />
-    <Content Include="Views\Templates\calculadorweb_error.9d2acc3f-4b98-4002-b47e-0079ebdba2d2.23.cshtml" />
-    <Content Include="Views\Templates\extranet_botonera_buscar_popup.e59e65f9-1a3d-43d0-b976-5db2bb0dd048.4.cshtml" />
-    <Content Include="Views\Templates\formulariosscriptor.00ffb88b-cc2a-417f-8b86-c9a2df0a34df.243.cshtml" />
-    <Content Include="Views\Templates\formulariosscriptor.00ffb88b-cc2a-417f-8b86-c9a2df0a34df.247.cshtml" />
     <None Include="Web.Parametros.config" />
   </ItemGroup>
   <ItemGroup>

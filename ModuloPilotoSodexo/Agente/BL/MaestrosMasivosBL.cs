@@ -1,4 +1,6 @@
 ﻿using GR.Scriptor.Framework;
+using ModuloPilotoSodexo.Proxy;
+using RANSA.MCIP.DTO.MaestrosMasivos.ClienteMasivo;
 using RANSA.MCIP.ViewModel.MaestrosMasivos;
 using System;
 using System.Collections.Generic;
@@ -29,25 +31,20 @@ namespace ModuloPilotoSodexo.Agente.BL
                         {
                             pck.Load(stream);
                         }
-                        var CantidadWS = pck.Workbook.Worksheets.Count();
                         // Cargando los Datos --
-                        for (int i = 1; i <= CantidadWS; i++)
+                        var ws = pck.Workbook.Worksheets["Cliente"];
+                        foreach (var firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
                         {
-                            var ws = pck.Workbook.Worksheets[i];
-                            DataTable tbl = new DataTable(ws.Name);
-                            foreach (var firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
+                            dtCargaMasivoCliente.Columns.Add(hasHeader ? firstRowCell.Text : string.Format("Column {0}", firstRowCell.Start.Column));
+                        }
+                        var startRow = hasHeader ? 2 : 1;
+                        for (int rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
+                        {
+                            var wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
+                            DataRow row = dtCargaMasivoCliente.Rows.Add();
+                            foreach (var cell in wsRow)
                             {
-                                tbl.Columns.Add(hasHeader ? firstRowCell.Text : string.Format("Column {0}", firstRowCell.Start.Column));
-                            }
-                            var startRow = hasHeader ? 2 : 1;
-                            for (int rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
-                            {
-                                var wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
-                                DataRow row = tbl.Rows.Add();
-                                foreach (var cell in wsRow)
-                                {
-                                    row[cell.Start.Column - 1] = cell.Text;
-                                }
+                                row[cell.Start.Column - 1] = cell.Text;
                             }
                         }
                     }
@@ -56,16 +53,18 @@ namespace ModuloPilotoSodexo.Agente.BL
                 foreach (DataRow ItemCliente in dtCargaMasivoCliente.Rows)
                 {
                     var ocliente = new MasivoClienteViewModel();
-                    ocliente.CodigoCliente = ItemCliente[""].ToString();
-                    ocliente.Nombre = ItemCliente[""].ToString();
-                    ocliente.IdPais = ItemCliente[""].ToString();
-                    ocliente.IdDepartamento = ItemCliente[""].ToString();
-                    ocliente.IdProvincia = ItemCliente[""].ToString();
-                    ocliente.IdDistrito = ItemCliente[""].ToString();
-                    ocliente.Direccion = ItemCliente[""].ToString();
-                    ocliente.FlagAnulacion = ItemCliente[""].ToString();
-                    ocliente.CodigoTipoDocumento = ItemCliente[""].ToString();
-                    ocliente.NumDocumento = ItemCliente[""].ToString();
+                    ocliente.CodigoCliente = ItemCliente["Codigocliente"].ToString();
+                    ocliente.Nombre = ItemCliente["Nombre"].ToString();
+                    ocliente.IdPais = ItemCliente["Pais"].ToString();
+                    ocliente.IdProvincia = ItemCliente["Provincia"].ToString();
+                    ocliente.IdDepartamento = ItemCliente["Departamento"].ToString();
+                    ocliente.IdDistrito = ItemCliente["Distrito"].ToString();
+                    ocliente.Direccion = ItemCliente["Direccion"].ToString();
+                    ocliente.FlagAnulacion = "0";
+                    ocliente.CodigoTipoDocumento = ItemCliente["TipoDocumento"].ToString();
+                    ocliente.CodigoCuenta = ItemCliente["Cuenta"].ToString();
+                    ocliente.CodigoNegocio = ItemCliente["Negocio"].ToString();
+                    ocliente.NumDocumento = ItemCliente["NroIdentifacion"].ToString();
                     ListaMasivoClientes.Add(ocliente);
                     // Paginacion Memory
                     //ListaResponse = ListaPedidoIndividualMasivo.Skip(Convert.ToInt32(PaginacionDTO.page) * 10).Take(10).ToList();
@@ -78,22 +77,16 @@ namespace ModuloPilotoSodexo.Agente.BL
             return ListaMasivoClientes;
         }
 
+
         public ResponseClienteMasivoViewModel RegistraMasivoCliente(RequestMasivoClienteViewModel request)
         {
             var response = new ResponseClienteMasivoViewModel();
             try
             {
-                var ListRequesCliente = new List<MasivoClienteViewModel>();
-                //foreach (var item in request.ListaCargaMasiva)
-                //{
-                //    Mapper.CreateMap<DetallePedidoViewModel, DetallePedidoDTO>();
-                //    var requestAgente = GR.Scriptor.Framework.Helper.MiMapper<RequestRegistroPedidoIndividualViewModel, RequestRegistroPedidoIndividualDTO>(item);
-                //    ListRequesAgente.Add(requestAgente);
-                //}
-                //var responseRegistroMasivoPedidoDto = new PedidoProxyRest().RegistrarPedidoMasivo(ListRequesAgente);
-
-                //response.Result.Satisfactorio = responseRegistroMasivoPedidoDto.Result.Satisfactorio;
-                //response.Result.Mensaje = responseRegistroMasivoPedidoDto.Result.Mensaje;
+                var requestAgente = GR.Scriptor.Framework.Helper.MiMapper<RequestMasivoClienteViewModel, RequestClienteMasivoDTO>(request);
+                var responseRegistroMasivoCliente = new MaestroMasivoProxyRest().RegistrarMasivoCliente(requestAgente);
+                response.Result.Satisfactorio = responseRegistroMasivoCliente.Result.Satisfactorio;
+                response.Result.Mensaje = responseRegistroMasivoCliente.Result.Mensaje;
             }
             catch (Exception ex)
             {

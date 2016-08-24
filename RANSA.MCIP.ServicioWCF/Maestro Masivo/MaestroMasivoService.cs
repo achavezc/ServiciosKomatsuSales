@@ -14,7 +14,7 @@ namespace RANSA.MCIP.ServicioWCF
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "MaestroMasivoService" en el código y en el archivo de configuración a la vez.
     public class MaestroMasivoService : IMaestroMasivoService
     {
-        //demo JM
+
         public ResponseClienteMasivoDTO RegistraMasivocliente(RequestClienteMasivoDTO request)
         {
             var response = new ResponseClienteMasivoDTO();

@@ -12,7 +12,6 @@ namespace ServicioOracleWCF
 {
     public class Service1 : IService1
     {
-        //Demo
         public ResponseRegistarPedidoDTO RegistrarPedidoIndividual(RequestRegistroPedidoIndividualDTO request)
         {
             ServicioOracleBL servicioBL = new ServicioOracleBL();
