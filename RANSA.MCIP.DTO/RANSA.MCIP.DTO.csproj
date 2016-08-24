@@ -95,6 +95,9 @@
     <Compile Include="MaestrosMasivos\ClienteMasivo\MasivoClienteDTO.cs" />
     <Compile Include="MaestrosMasivos\ClienteMasivo\RequestClienteMasivoDTO.cs" />
     <Compile Include="MaestrosMasivos\ClienteMasivo\ResponseClienteMasivoDTO.cs" />
+    <Compile Include="MaestrosMasivos\MaterialMasivo\MasivoMaterialDTO.cs" />
+    <Compile Include="MaestrosMasivos\MaterialMasivo\RequestMaterialMasivoDTO.cs" />
+    <Compile Include="MaestrosMasivos\MaterialMasivo\ResponseMaterialMasivoDTO.cs" />
     <Compile Include="Maestros\Almacen\AlmacenDTO.cs" />
     <Compile Include="Maestros\Almacen\ResponseListarAlmacen.cs" />
     <Compile Include="Maestros\Cliente\ClienteDTO.cs" />
@@ -153,6 +156,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MaestrosMasivos\AlmacenMasivo\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

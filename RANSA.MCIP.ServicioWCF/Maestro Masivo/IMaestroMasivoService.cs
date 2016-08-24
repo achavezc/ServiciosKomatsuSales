@@ -1,5 +1,6 @@
 ﻿using RANSA.MCIP.DTO;
 using RANSA.MCIP.DTO.MaestrosMasivos.ClienteMasivo;
+using RANSA.MCIP.DTO.MaestrosMasivos.MaterialMasivo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,10 @@ namespace RANSA.MCIP.ServicioWCF
         [OperationContract]
         [WebInvoke(UriTemplate = "/RegistraMasivocliente", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         ResponseClienteMasivoDTO RegistraMasivocliente(RequestClienteMasivoDTO request);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/RegistraMasivoMaterial", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        ResponseMaterialMasivoDTO RegistraMasivoMaterial(RequestMaterialMasivoDTO request);
 
 
     }

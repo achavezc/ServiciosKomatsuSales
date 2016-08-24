@@ -83,7 +83,6 @@ namespace ModuloPilotoSodexo.Agente.BL
             var response = new ResponseClienteMasivoViewModel();
             try
             {
-                //var requestAgentes = GR.Scriptor.Framework.Helper.MiMapper<RequestMasivoClienteViewModel, RequestClienteMasivoDTO>(request);
                 var requestAgente = new RequestClienteMasivoDTO();
                 requestAgente.ListaCliente = (from item in request.ListaCliente
                                               select GR.Scriptor.Framework.Helper.MiMapper<MasivoClienteViewModel, MasivoClienteDTO>(item)).ToList();
@@ -99,6 +98,12 @@ namespace ModuloPilotoSodexo.Agente.BL
             return response;
         }
         #endregion
+
+        #region Carga Masivo Material
+
+        #endregion
+
+
 
     }
 }

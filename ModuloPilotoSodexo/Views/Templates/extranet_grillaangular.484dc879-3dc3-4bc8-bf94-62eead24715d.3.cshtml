@@ -1,0 +1,61 @@
+@model ScriptorContent
+@{
+	var idGrilla=Model.Parts.objgrilla;
+  var modelData= "";
+  if(String.IsNullOrEmpty(Model.Parts.ModelData)==false)
+  {
+      modelData="$root.DatosFormulario."+Model.Parts.ModelData;
+  }
+}
+  
+  <div style="width:100%;">
+  
+  
+  @if(Model.Parts.FlgMostrarTitulo.ToString()=="1")
+  {
+    <div class="block_cab block_cab_active">
+      <h2>
+          <span>@Model.Parts.TituloSeccion</span></h2>
+      <h3></h3>
+      <div class="acordeon">
+      </div>
+    </div>
+  }
+  else
+  {
+    
+  }
+<div id="ContentListado@(Model.Id)" class="block_content">
+    <div class="form_section" style="width:100%">
+      
+        <div class='forms2'>
+            <div class='table-responsive' style="overflow:hidden">
+      
+                <ng-jqgrid 
+                config="config" 
+                addnew="true" 
+                modeldata="@(modelData)" 
+                gridid="@idGrilla" 
+                pagerid="@(idGrilla)_pager" 
+                api="gridapi@(idGrilla)" 
+                flgOcultarBarraPaginado="@(Model.Parts.FlgOcultarBarraPaginado)" 
+                IdGrilla="@Model.Id" 
+  				tituloSinResultados="@(Model.Parts.TituloSinResultados)" 
+  				OcultarExportar="@(Model.Parts.FlgOcultarExportar)"
+                altoGrilla="@(Model.Parts.altoGrilla)" 
+                idMarcarPrimerResgistro="0" 
+  				ngClickAgregar="@(Model.Parts.ngClickAgregar)"
+                urlListar="@Model.Parts.urlListar" 
+                FlgCargarGrilla="@(Model.Parts.FlgCargarGrilla)">
+                    <table id="@idGrilla"></table>
+                    <div id="@(idGrilla)_pager"></div>
+                </ng-jqgrid>
+      
+            </div>
+        </div>
+    </div>
+  <div class="caja11 msgerror @idGrilla"></div>
+</div>
+  
+  
+  </div>

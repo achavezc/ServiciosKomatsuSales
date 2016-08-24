@@ -23,7 +23,6 @@ namespace ModuloPilotoSodexo.Controllers
 
         #region Clientes
 
-
         public ActionResult CargaMasivaClientes(HttpPostedFileBase upload)
         {
             ActionResult actionResult = null;
@@ -62,6 +61,28 @@ namespace ModuloPilotoSodexo.Controllers
         #endregion
 
         #region Material
+
+        public ActionResult CargaMasivaMateriales(HttpPostedFileBase upload)
+        {
+            ActionResult actionResult = null;
+            var manejadorLogEventos = new ManejadorLogEventos();
+            try
+            {
+                var response = new MaestrosMasivosBL().CargarDatosMasivoCliente(upload);
+                actionResult = actionResult = Content(JsonConvert.SerializeObject(response));
+            }
+            catch (Exception ex)
+            {
+                HelperCtrl.GrabarLog(ex, "", PoliticaExcepcion.WebController);
+            }
+            finally
+            {
+                manejadorLogEventos.RegistrarTiempoEjecucion(HelperCtrl.ObtenerAtributosManejadorEventos(ControllerContext.ToString(), MethodBase.GetCurrentMethod().Name, HelperCtrl.ObtenerUsuario()));
+            }
+            return actionResult;
+        }
+
+
 
         #endregion
     }
