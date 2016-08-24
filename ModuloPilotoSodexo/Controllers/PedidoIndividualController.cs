@@ -165,7 +165,8 @@ namespace ModuloPilotoSodexo.Controllers
                     defaultCodigoCuenta = responseObtenerCuenta.cuenta.CodigoCuenta;
                 }
 
-                pedidoViewModel.DatosFormulario.NroPedido = "000001";
+                var responseNumeroPedido = new PedidoBL().ObtenerNumeroPedido();
+                pedidoViewModel.DatosFormulario.NroPedido = responseNumeroPedido.Correlativo;
 
                 TipoAccionRegistro tipoAccionRegistro = (String.IsNullOrEmpty(nroPedido) == true ? TipoAccionRegistro.Nuevo : TipoAccionRegistro.Actualizar);
                 switch (tipoAccionRegistro)

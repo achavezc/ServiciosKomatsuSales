@@ -13,6 +13,7 @@ using RANSA.MCIP.Entidades;
 using RANSA.MCIP.ViewModel.Pedidos;
 using System.Data;
 using System.Configuration;
+using RANSA.MCIP.DTO.Maestros;
 
 namespace ModuloPilotoSodexo.Agente.BL
 {
@@ -299,7 +300,24 @@ namespace ModuloPilotoSodexo.Agente.BL
             return responseDetallePedido;
         }
 
+        public ResponseObtenerCorrelativoMaestroViewModel ObtenerNumeroPedido()
+        {
+            ResponseObtenerCorrelativoMaestroViewModel response = new ResponseObtenerCorrelativoMaestroViewModel();
+            try
+            {
+                var requestAgente = new RequestObtenerCorrelativoMaestro();
+                requestAgente.Tipo = "pedido";
+                var responseDTO = new PedidoProxyRest().ObtenerNumeroPedido(requestAgente);
 
+                response.Correlativo = responseDTO.Correlativo;
+            }
+            catch (Exception ex)
+            {
+                response.Result = new RANSA.MCIP.DTO.Result { Satisfactorio = false };
+                ManejadorExcepciones.PublicarExcepcion(ex, PoliticaExcepcion.AgenteServicios);
+            }
+            return response;
+        }
 
 
         #region Carga Masivo Pedido Individual
