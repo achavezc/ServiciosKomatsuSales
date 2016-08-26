@@ -108,11 +108,11 @@ namespace RANSA.MCIP.AccesoDatos.MaestrosMasivos
                 conexion.Open();
             try
             {
-                string nombreProcedure = "PA_GRSCRIPTOR_CARGAMASIVA_ALMACENES";
+                string nombreProcedure = "PA_GRSCRIPTOR_CARGAMASIVA_ALMACEN";
                 SqlCommand cmd = new SqlCommand(nombreProcedure, conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                SqlParameter par1 = new SqlParameter("@ListaClientesExcel", SqlDbType.Structured);
-                par1.TypeName = "dbo.TP_ListaClientes";
+                SqlParameter par1 = new SqlParameter("@ListaAlmacenExcel", SqlDbType.Structured);
+                par1.TypeName = "dbo.TP_ListaAlmacen";
                 par1.Value = datos;
                 cmd.Parameters.Add(par1);
                 cmd.ExecuteNonQuery();
@@ -225,28 +225,24 @@ namespace RANSA.MCIP.AccesoDatos.MaestrosMasivos
                 new SqlMetaData("IdDepartamento", SqlDbType.Text),
                 new SqlMetaData("IdProvincia", SqlDbType.Text),
                 new SqlMetaData("IdDistrito", SqlDbType.Text),
+                new SqlMetaData("CodigoAlmacen", SqlDbType.Text),
                 new SqlMetaData("FlagAnulacion", SqlDbType.Text),
-                new SqlMetaData("CodigoTipoDocumento", SqlDbType.Text),
                 new SqlMetaData("Nombre", SqlDbType.Text),
-                new SqlMetaData("CodigoCliente", SqlDbType.Text),
-                new SqlMetaData("NumDocumento", SqlDbType.Text),
                 new SqlMetaData("CodigoCuenta", SqlDbType.Text),
                 new SqlMetaData("CodigoNegocio", SqlDbType.Text)
             );
             foreach (MasivoAlmacenDTO ListaAlmacenitem in this)
             {
-                //sqlDataRecord.SetString(0, ListaClienteitem.Direccion);
-                //sqlDataRecord.SetString(1, ListaClienteitem.IdPais);
-                //sqlDataRecord.SetString(2, ListaClienteitem.IdDepartamento);
-                //sqlDataRecord.SetString(3, ListaClienteitem.IdProvincia);
-                //sqlDataRecord.SetString(4, ListaClienteitem.IdDistrito);
-                //sqlDataRecord.SetString(5, ListaClienteitem.FlagAnulacion);
-                //sqlDataRecord.SetString(6, ListaClienteitem.CodigoTipoDocumento);
-                //sqlDataRecord.SetString(7, ListaClienteitem.Nombre);
-                //sqlDataRecord.SetString(8, ListaClienteitem.CodigoCliente);
-                //sqlDataRecord.SetString(9, ListaClienteitem.NumDocumento);
-                //sqlDataRecord.SetString(10, ListaClienteitem.CodigoCuenta);
-                //sqlDataRecord.SetString(11, ListaClienteitem.CodigoNegocio);
+                sqlDataRecord.SetString(0, ListaAlmacenitem.Direccion);
+                sqlDataRecord.SetString(1, ListaAlmacenitem.IdPais);
+                sqlDataRecord.SetString(2, ListaAlmacenitem.IdDepartamento);
+                sqlDataRecord.SetString(3, ListaAlmacenitem.IdProvincia);
+                sqlDataRecord.SetString(4, ListaAlmacenitem.IdDistrito);
+                sqlDataRecord.SetString(5, ListaAlmacenitem.CodigoAlmacen);
+                sqlDataRecord.SetString(6, ListaAlmacenitem.FlagAnulacion);
+                sqlDataRecord.SetString(7, ListaAlmacenitem.Nombre);
+                sqlDataRecord.SetString(8, ListaAlmacenitem.CodigoCuenta);
+                sqlDataRecord.SetString(9, ListaAlmacenitem.CodigoNegocio);
                 yield return sqlDataRecord;
             }
         }

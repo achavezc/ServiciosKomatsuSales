@@ -11,11 +11,11 @@ namespace RANSA.MCIP.ViewModel.MaestrosMasivos
         public string CodigoAlmacen { get; set; }
         public string Nombre { get; set; }
         public string Direccion { get; set; }
-        public int Anulado { get; set; }
-        public string Pais { get; set; }
-        public string Departamento { get; set; }
-        public string Provincia { get; set; }
-        public string Distrito { get; set; }
+        public string FlagAnulacion { get; set; }
+        public string IdPais { get; set; }
+        public string IdDepartamento { get; set; }
+        public string IdProvincia { get; set; }
+        public string IdDistrito { get; set; }
         public string CodigoCuenta { get; set; }
         public string CodigoNegocio { get; set; }
     }

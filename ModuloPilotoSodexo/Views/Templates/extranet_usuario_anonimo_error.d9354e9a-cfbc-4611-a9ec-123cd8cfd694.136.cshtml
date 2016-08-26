@@ -35,41 +35,15 @@
 	@Html.Raw("@Html.Template(Common.ScriptorClient.GetChannel(new Guid(\""+guidLayout+"\")).Properties.Content, \"Extranet_Header\")")
   
  <div>
-<div id="ContenedorBody" style="width: 100%; clear: both;;">
+<div id="ContenedorBody" style="width: 100%; clear: both;">
         <div>
             <div class="col-md-12 wrapper  @if (ViewBag.wrapperWidth == null)
                                  { @Html.Raw("wrapperMediano") }
                                  else
                                  { @ViewBag.wrapperWidth } " style="padding-top: 0px!important;padding-bottom: 0px!important;border: 0px!important">
 
-               
-                 
-                        <div id="centro" class="contenido" style="border: 1px solid #0E75B5;">
-                          <div class="left centrado anchoSlide" style="border: 1px solid black; background-color: #DCEDF7; width: 70%; height: 99%; position: relative" ng-show="$root.MostrarCarrusel==true">
-                      
-                              
-                              <div id="banner" style="height:100%">
-                      
-                                 
-                                  <div class="autoplay center" style="width: 94%; position: relative">
-                                      <!------------------------------------------------------------------>
-                                      @foreach(ScriptorContent content in Model.Parts.CarruselBanners)
-                                      {
-                                            <div>
-                                              <h3>  
-                                                  <img src="@content.Parts.imagen" title="@content.Parts.titulo" class="imgslick" />
-                                              </h3>
-                                            </div>
-                                              
-                                      }
-                                      <!------------------------------------------------------------------>
-                                     </div>
-                      
-                              </div>
-                          </div>
-                          <div class="right derecho anchoFrm">@*style="padding-top: 20px; padding-bottom: 20px; padding-left: 10px"*@
                                    @Html.Raw("@RenderBody()")
-                          </div>
+
                       </div>
                    
 

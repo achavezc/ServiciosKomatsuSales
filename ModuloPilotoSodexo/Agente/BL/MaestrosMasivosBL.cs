@@ -234,16 +234,16 @@ namespace ModuloPilotoSodexo.Agente.BL
                 foreach (DataRow ItemCliente in dtCargaMasivo.Rows)
                 {
                     var oAlamacen = new MasivoAlmacenViewModel();
-                    oAlamacen.CodigoAlmacen = ItemCliente[""].ToString();
-                    oAlamacen.Nombre = ItemCliente[""].ToString();
-                    oAlamacen.Direccion = ItemCliente[""].ToString();
-                    oAlamacen.Anulado = Convert.ToInt32(ItemCliente[""]);
-                    oAlamacen.Pais = ItemCliente[""].ToString();
-                    oAlamacen.Departamento = ItemCliente[""].ToString();
-                    oAlamacen.Provincia = ItemCliente[""].ToString();
-                    oAlamacen.Distrito = ItemCliente[""].ToString();
-                    oAlamacen.CodigoCuenta = ItemCliente[""].ToString();
-                    oAlamacen.CodigoNegocio = ItemCliente[""].ToString();
+                    oAlamacen.CodigoAlmacen = ItemCliente["CodigoAlmacen"].ToString();
+                    oAlamacen.Nombre = ItemCliente["Nombre"].ToString();
+                    oAlamacen.Direccion = ItemCliente["Direccion"].ToString();
+                    oAlamacen.FlagAnulacion = "0";
+                    oAlamacen.IdPais = ItemCliente["Pais"].ToString();
+                    oAlamacen.IdDepartamento = ItemCliente["Departamento"].ToString();
+                    oAlamacen.IdProvincia = ItemCliente["Provincia"].ToString();
+                    oAlamacen.IdDistrito = ItemCliente["Distrito"].ToString();
+                    oAlamacen.CodigoCuenta = ItemCliente["CodigoCuenta"].ToString();
+                    oAlamacen.CodigoNegocio = ItemCliente["CodigoNegocio"].ToString();
                     ListaMasivoAlmacen.Add(oAlamacen);
                     // Paginacion Memory
                     //ListaResponse = ListaPedidoIndividualMasivo.Skip(Convert.ToInt32(PaginacionDTO.page) * 10).Take(10).ToList();
