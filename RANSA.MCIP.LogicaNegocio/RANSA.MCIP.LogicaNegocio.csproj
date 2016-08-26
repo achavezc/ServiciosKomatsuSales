@@ -64,7 +64,7 @@
     <Compile Include="Comun\PaginacionBL.cs" />
     <Compile Include="Comun\ParametroNegocioBL.cs" />
     <Compile Include="Comun\DetalleCatalogoBL.cs" />
-    <Compile Include="MaestrosMasivos\ClienteMasivoBL.cs" />
+    <Compile Include="MaestrosMasivos\MaestrosMasivoBL.cs" />
     <Compile Include="Maestros\ClienteBL.cs" />
     <Compile Include="Maestros\AlmacenBL.cs" />
     <Compile Include="Maestros\MaestroBL.cs" />

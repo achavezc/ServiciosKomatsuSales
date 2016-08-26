@@ -1,5 +1,6 @@
 ﻿using Microsoft.SqlServer.Server;
 using RANSA.MCIP.DTO;
+using RANSA.MCIP.DTO.MaestrosMasivos.AlmacenMasivo;
 using RANSA.MCIP.DTO.MaestrosMasivos.ClienteMasivo;
 using RANSA.MCIP.DTO.MaestrosMasivos.MaterialMasivo;
 using RANSA.MCIP.Framework;
@@ -15,7 +16,6 @@ namespace RANSA.MCIP.AccesoDatos.MaestrosMasivos
 {
     public class ClienteMasivoDA
     {
-
         public ResponseClienteMasivoDTO RegistrarClienteMasivo(List<MasivoClienteDTO> ListaCliente)
         {
             ResponseClienteMasivoDTO response = new ResponseClienteMasivoDTO();
@@ -53,7 +53,7 @@ namespace RANSA.MCIP.AccesoDatos.MaestrosMasivos
             }
             return response;
         }
-        
+
         public ResponseMaterialMasivoDTO RegistrarMaterialMasivo(List<MasivoMaterialDTO> ListaMaterial)
         {
             var response = new ResponseMaterialMasivoDTO();
@@ -70,7 +70,45 @@ namespace RANSA.MCIP.AccesoDatos.MaestrosMasivos
                 conexion.Open();
             try
             {
-                string nombreProcedure = "PA_GRSCRIPTOR_CARGAMASIVA_MATERIALES";
+                string nombreProcedure = "PA_GRSCRIPTOR_CARGAMASIVA_MATERIAL";
+                SqlCommand cmd = new SqlCommand(nombreProcedure, conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter par1 = new SqlParameter("@ListaMaterialesExcel", SqlDbType.Structured);
+                par1.TypeName = "dbo.TP_ListaMateriales";
+                par1.Value = datos;
+                cmd.Parameters.Add(par1);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                response.Result.Satisfactorio = false;
+                ManejadorExcepciones.PublicarExcepcion(ex, PoliticaExcepcion.AccesoDatos);
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+            return response;
+        }
+
+        public ResponseAlmacenMasivoDTO RegistrarAlmacenMasivo(List<MasivoAlmacenDTO> ListaAlamacen)
+        {
+            var response = new ResponseAlmacenMasivoDTO();
+            int idError = 0;
+            string mensaje = "";
+
+            TipoListaAlmacenCollection datos = new TipoListaAlmacenCollection();
+            foreach (MasivoAlmacenDTO item in ListaAlamacen)
+            {
+                datos.Add(item);
+            }
+            SqlConnection conexion = new SqlConnection(ContextoParaBaseDatos.DecryptedConnectionString());
+            if (conexion.State == ConnectionState.Closed)
+                conexion.Open();
+            try
+            {
+                string nombreProcedure = "PA_GRSCRIPTOR_CARGAMASIVA_ALMACENES";
                 SqlCommand cmd = new SqlCommand(nombreProcedure, conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlParameter par1 = new SqlParameter("@ListaClientesExcel", SqlDbType.Structured);
@@ -91,8 +129,6 @@ namespace RANSA.MCIP.AccesoDatos.MaestrosMasivos
             }
             return response;
         }
-
-
     }
 
     public class TipoListaClienteCollection : List<MasivoClienteDTO>, IEnumerable<SqlDataRecord>
@@ -137,6 +173,53 @@ namespace RANSA.MCIP.AccesoDatos.MaestrosMasivos
         IEnumerator<SqlDataRecord> IEnumerable<SqlDataRecord>.GetEnumerator()
         {
             var sqlDataRecord = new SqlDataRecord(
+                new SqlMetaData("CodigoUnidadPeso", SqlDbType.Text),
+                new SqlMetaData("PesoNeto", SqlDbType.Float),
+                new SqlMetaData("PesoBruto", SqlDbType.Float),
+                new SqlMetaData("Volumen", SqlDbType.Float),
+                new SqlMetaData("CodigoUnidadVolumen", SqlDbType.Text),
+                new SqlMetaData("Ancho", SqlDbType.Float),
+                new SqlMetaData("Altura", SqlDbType.Float),
+                new SqlMetaData("UnidadXCaja", SqlDbType.Float),
+                new SqlMetaData("CajaXPallet", SqlDbType.Float),
+                new SqlMetaData("CajaXCama", SqlDbType.Float),
+                new SqlMetaData("CamaXPallet", SqlDbType.Float),
+                new SqlMetaData("Descripcion", SqlDbType.Text),
+                new SqlMetaData("DescripcionBreve", SqlDbType.Text),
+                new SqlMetaData("CodigoMaterial", SqlDbType.Text),
+                new SqlMetaData("CodigoUnidadMedidaBase", SqlDbType.Text),
+                new SqlMetaData("Longitud", SqlDbType.Float),
+                new SqlMetaData("CodigoCuenta", SqlDbType.Text)
+            );
+            foreach (MasivoMaterialDTO ListaMaterialitem in this)
+            {
+                sqlDataRecord.SetString(0, ListaMaterialitem.CodigoUnidadPeso);
+                sqlDataRecord.SetDouble(1, ListaMaterialitem.PesoNeto);
+                sqlDataRecord.SetDouble(2, ListaMaterialitem.PesoBruto);
+                sqlDataRecord.SetDouble(3, ListaMaterialitem.Volumen);
+                sqlDataRecord.SetString(4, ListaMaterialitem.CodigoUnidadVolumen);
+                sqlDataRecord.SetDouble(5, ListaMaterialitem.Ancho);
+                sqlDataRecord.SetDouble(6, ListaMaterialitem.Altura);
+                sqlDataRecord.SetDouble(7, ListaMaterialitem.UnidadesPorCaja);
+                sqlDataRecord.SetDouble(8, ListaMaterialitem.CajaXPallet);
+                sqlDataRecord.SetDouble(9, ListaMaterialitem.CajaXCama);
+                sqlDataRecord.SetDouble(10, ListaMaterialitem.CamaXPallet);
+                sqlDataRecord.SetString(11, ListaMaterialitem.Descripcion);
+                sqlDataRecord.SetString(12, ListaMaterialitem.DescripcionBreve);
+                sqlDataRecord.SetString(13, ListaMaterialitem.CodigoMaterial);
+                sqlDataRecord.SetString(14, ListaMaterialitem.CodigoUnidadMedidaBase);
+                sqlDataRecord.SetDouble(15, ListaMaterialitem.Longitud);
+                sqlDataRecord.SetString(16, ListaMaterialitem.CodigoCuenta);
+                yield return sqlDataRecord;
+            }
+        }
+    }
+
+    public class TipoListaAlmacenCollection : List<MasivoAlmacenDTO>, IEnumerable<SqlDataRecord>
+    {
+        IEnumerator<SqlDataRecord> IEnumerable<SqlDataRecord>.GetEnumerator()
+        {
+            var sqlDataRecord = new SqlDataRecord(
                 new SqlMetaData("Direccion", SqlDbType.Text),
                 new SqlMetaData("IdPais", SqlDbType.Text),
                 new SqlMetaData("IdDepartamento", SqlDbType.Text),
@@ -150,7 +233,7 @@ namespace RANSA.MCIP.AccesoDatos.MaestrosMasivos
                 new SqlMetaData("CodigoCuenta", SqlDbType.Text),
                 new SqlMetaData("CodigoNegocio", SqlDbType.Text)
             );
-            foreach (MasivoMaterialDTO ListaMaterialitem in this)
+            foreach (MasivoAlmacenDTO ListaAlmacenitem in this)
             {
                 //sqlDataRecord.SetString(0, ListaClienteitem.Direccion);
                 //sqlDataRecord.SetString(1, ListaClienteitem.IdPais);
@@ -168,6 +251,5 @@ namespace RANSA.MCIP.AccesoDatos.MaestrosMasivos
             }
         }
     }
-
 
 }

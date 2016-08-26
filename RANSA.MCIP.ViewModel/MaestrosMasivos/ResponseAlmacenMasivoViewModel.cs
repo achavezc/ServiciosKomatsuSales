@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace RANSA.MCIP.ViewModel.MaestrosMasivos
 {
-   public class ResponseClienteMasivoViewModel
+    public class ResponseAlmacenMasivoViewModel
     {
-             public Result Result { get; set; }
-             public ResponseClienteMasivoViewModel()
+        public Result Result { get; set; }
+        public ResponseAlmacenMasivoViewModel()
         {
             this.Result = new Result();
         }

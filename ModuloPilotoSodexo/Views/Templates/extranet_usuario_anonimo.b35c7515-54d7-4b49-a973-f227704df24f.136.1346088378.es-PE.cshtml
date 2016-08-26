@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-  <!--[if lt IE 7]>
+<!--[if lt IE 7]>
 <html lang="es" class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="api" ng-controller="LayoutController"> <![endif]-->
 <!--[if IE 7]>
 <html lang="es" class="no-js lt-ie9 lt-ie8" ng-app="api" ng-controller="LayoutController"> <![endif]-->
@@ -14,24 +13,32 @@
  <link rel="stylesheet" href="/css/bootstrap/3.2.0/bootstrap.min.css">  
  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   
-<style>     .container { width: 100%; } </style>
+               <style>     .container { width: 100%; } </style>
 <![endif]-->
-
 <head>
-    <meta http-equiv="x-ua-compatible" content="IE=8,IE=9,IE=10,IE=11">
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+	<meta http-equiv="x-ua-compatible" content="IE=8,IE=9,IE=10,IE=11">
+	<meta charset="utf-8" />
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="keywords" content="">
     <meta name="description" content="">
+  	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    @RenderSection("Meta", required: false)
+
+    @RenderSection("Meta", false)
+    <meta charset="utf-8" />
+    <title>Seguimiento Pedidos - @ViewBag.Title</title>
     
-    @RenderSection("Head", required: false)
-    @RenderSection("Styles", required: false)
+  	<link rel="stylesheet" href="/bundles/5f9615e8d51557e5beb5b99cb4c3f03c/6eb687a3-df06-45ba-8efc-f58197919bba/930cf65f-2458-441d-8593-5c6db0c117bf/slick.css" />
+	<link rel="stylesheet" href="/bundles/5f9615e8d51557e5beb5b99cb4c3f03c/6eb687a3-df06-45ba-8efc-f58197919bba/160ce82e-b5c2-48a4-b8af-2335373678eb/slick-theme.css" />
+  	<style type="text/css">
+  	.tituloSistema{
+  		display:none;
+	}
   
-  
-   	
-<!--START TEMPLATE 71f46c18-9bb0-4bde-8f4e-4d6ec94a8387:1ceef37c-1b50-43d6-95ae-fb39baf85623:31cbf3b6-4abb-405a-aa69-a2a2828bc6d9:23341ad4-1591-49d9-b4e3-9f828a6f19a5:SegPedido_Referencias-->
+  	</style>
+  	
+<!--START TEMPLATE 71f46c18-9bb0-4bde-8f4e-4d6ec94a8387:94aacf86-82cf-4e97-99ba-7c36ae80ae7a:74c9a12e-0acb-47c4-8c95-0912466e9873:e555aed4-074a-4476-893c-a4f0a0b152a9:SegPedido_Referencias-->
 <title>Seguimiento Pedidos @RenderSection("title", required: false)</title>
   <link rel="apple-touch-icon" sizes="57x57" href="http://seguimientopedidos.ransa.net/iconos/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="http://seguimientopedidos.ransa.net/iconos/apple-icon-60x60.png">
@@ -240,110 +247,111 @@
   -->
   
 
-<!--END TEMPLATE 71f46c18-9bb0-4bde-8f4e-4d6ec94a8387:1ceef37c-1b50-43d6-95ae-fb39baf85623:31cbf3b6-4abb-405a-aa69-a2a2828bc6d9:23341ad4-1591-49d9-b4e3-9f828a6f19a5:SegPedido_Referencias-->
+<!--END TEMPLATE 71f46c18-9bb0-4bde-8f4e-4d6ec94a8387:94aacf86-82cf-4e97-99ba-7c36ae80ae7a:74c9a12e-0acb-47c4-8c95-0912466e9873:e555aed4-074a-4476-893c-a4f0a0b152a9:SegPedido_Referencias-->
 
+
+	<script src="/bundles/5f9615e8d51557e5beb5b99cb4c3f03c/9a02b174-c326-4108-905f-7b8baf72e135/bc1c7054-25d1-43d0-bf3a-0c48e6bc7f36/slick.min.js"></script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-66051807-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
   
 
+    @RenderSection("Head", false)
+    @RenderSection("Styles", required: false)
+    @Html.Raw(StackExchange.Profiling.MiniProfiler.RenderIncludes().ToString().Replace("/weblib/profiler/", Viatecla.Factory.Scriptor.ModularSite.Models.Common.GetConfigValue("PrefixPath") + "/weblib/profiler/"))
 
 </head>
-<body style="background-color: #F2EEED;display:block;margin:8px!important" style="height:725px;">
-  <div class="contenido" style="">
-  <!--
-   <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="../navbar/">Default</a></li>
-            <li><a href="../navbar-static-top/">Static top</a></li>
-            <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  -->
-  
- 
- 
-	@Html.Template(Common.ScriptorClient.GetChannel(new Guid("68A9CCA7-C327-41D2-8828-9FD8FECF12EA")).Properties.Content, "Extranet_Header")
-
-  	<a id="paginainicio" href="/es-PE/sistema/bienvenido" style="display:none;">aaa</a>
+<body>
+    <input name="__RequestVerificationToken" type="hidden" value="ovUchp-VNmwdmVxZT_8s_-KpPLDUE8T4tesrSU-il2bXRcmOgX9qu_XCtS3jvA_cpdj7b_ReLZeri23rUCxNk1eBrkdA0kMO4CujX7xrv1kfBlSEx-IdH-woj6wDsof10" />
     
-	<a style="display:none" href="/es-PE/pagina-de-error" id="urlError"></a>
+  <script>if (!window.addEventListener) { window.addEventListener = function (ev,cb) { window.attachEvent('on' + ev, cb); }; }</script>
+
+
+<a style="display:none" href="/es-PE/pagina-de-error" id="urlError"></a>
+ 
+	@Html.Template(Common.ScriptorClient.GetChannel(new Guid("76BA62DA-ECA1-458C-AC75-A660EA4C74C7")).Properties.Content, "Extranet_Header")
   
-  	<script>var numfilas=10</script>
-  	
-      <div id="ContenedorBodyMenu" class="divautenticado" style="width: 100%; clear: both; display:none;">
+ <div>
+<div id="ContenedorBody" style="width: 100%; clear: both;;">
         <div>
-            <div class="wrapper wrapperMediano col-md-12" style="padding-top: 0px!important;padding-bottom: 0px!important;border: 0px!important">
-	
+            <div class="col-md-12 wrapper  wrapperMediano " style="padding-top: 0px!important;padding-bottom: 0px!important;border: 0px!important">
+
+               
+                 
+                        <div id="centro" class="contenido" style="border: 1px solid #0E75B5;">
+                          <div class="left centrado anchoSlide" style="border: 1px solid black; background-color: #DCEDF7; width: 70%; height: 99%; position: relative" ng-show="$root.MostrarCarrusel==true">
+                      
+                              
+                              <div id="banner" style="height:100%">
+                      
+                                 
+                                  <div class="autoplay center" style="width: 94%; position: relative">
+                                      <!------------------------------------------------------------------>
+                                            <div>
+                                              <h3>  
+                                                  <img src="http://seguimientopedidos.ransa.net/static/2016-06/2016-06-14102124_3f6aad5c-885e-4fe3-91a4-85ea1a8dd2c6$$4a65774d-08be-43b8-8565-f58da7832499$$f799a390-676b-45e9-bcc3-b0a60cd82848$
+
+$imagen$$pt$$1.jpg" title="Imagen 1" class="imgslick" />
+                                              </h3>
+                                            </div>
+                                            <div>
+                                              <h3>  
+                                                  <img src="http://seguimientopedidos.ransa.net/static/2016-06/2016-06-14102125_3f6aad5c-885e-4fe3-91a4-85ea1a8dd2c6$$4a65774d-08be-43b8-8565-f58da7832499$$1cb83161-0a3c-439b-8787-15cb313d266d$
+
+$imagen$$pt$$1.jpg" title="Imagen 2" class="imgslick" />
+                                              </h3>
+                                            </div>
+                                      <!------------------------------------------------------------------>
+                                     </div>
+                      
+                              </div>
+                          </div>
+                          <div class="right derecho anchoFrm">
+                                   @RenderBody()
+                          </div>
+                      </div>
+                   
+
             </div>
         </div>
-    </div>
-  
-    <div id="ContenedorBody" class="divautenticado" style="width: 100%; clear: both;">
-        <div>
-            <div class="wrapper wrapperMediano col-md-12" style="padding-top: 0px!important;padding-bottom: 0px!important;border: 0px!important">
-				@RenderBody()
-            </div>
-        </div>
-    </div>
-    
-    @Html.Template(Common.ScriptorClient.GetChannel(new Guid("68A9CCA7-C327-41D2-8828-9FD8FECF12EA")).Properties.Content, "Extranet_Footer")
 
-    
-  	
-    <!--Código Menu-->
-    <script type="text/javascript">
-        $(function(){
-            datosMenu={
-                idChannelMenu:'f82150b4-e905-4013-89ea-9a4383e98276',
-                urlMenu:'/SeguridadLocal/MenuPrincipal'
-            };
-  			$.getScript( datosMenu.urlMenu+"?GUIDChannel="+encodeURIComponent(datosMenu.idChannelMenu), function( data, textStatus, jqxhr ) {
-              //console.log( "Menu was performed." );
-            });
-        });
-  
-  function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-        vars[key] = value;
-    });
-    return vars;
+    </div>
+	   </div>
+	@Html.Template(Common.ScriptorClient.GetChannel(new Guid("76BA62DA-ECA1-458C-AC75-A660EA4C74C7")).Properties.Content, "Extranet_Footer")
+<script>
+function corregirCarrusel()
+{
+                                   if($(".slick-slider").length>0)
+                                   {
+                                        $(".slick-slider")[0].style.height="100%";
+                                        $(".slick-list")[0].style.height="100%";
+                                   }
 }
+setTimeout(corregirCarrusel,1000);
+                       
+if($("#botonMenuResponsive"))
+                                      {
+$("#botonMenuResponsive").hide();
+                                   }
+</script>
+                                        
+                                    
 
-
-    </script>
- 
     <!--Fin de Código Menu-->
-  	@RenderSection("Scripts", false)
-  
-  </div>
+                       
+
+
+    
+
+    
+    @RenderSection("Scripts", false)
 </body>
 </html>

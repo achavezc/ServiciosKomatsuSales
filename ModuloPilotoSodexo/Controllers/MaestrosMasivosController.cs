@@ -14,8 +14,7 @@ namespace ModuloPilotoSodexo.Controllers
 {
     public class MaestrosMasivosController : Controller
     {
-        //
-        // GET: /MaestrosMasivos/
+    
         public ActionResult Index()
         {
             return View();
@@ -68,7 +67,7 @@ namespace ModuloPilotoSodexo.Controllers
             var manejadorLogEventos = new ManejadorLogEventos();
             try
             {
-                var response = new MaestrosMasivosBL().CargarDatosMasivoCliente(upload);
+                var response = new MaestrosMasivosBL().CargarDatosMasivoMaterial(upload);
                 actionResult = actionResult = Content(JsonConvert.SerializeObject(response));
             }
             catch (Exception ex)
@@ -82,8 +81,61 @@ namespace ModuloPilotoSodexo.Controllers
             return actionResult;
         }
 
-
+        public ActionResult RegistraMasivoMaterial(RequestMasivoMaterialViewModel request)
+        {
+            ActionResult actionResult = null;
+            try
+            {
+                var response = new MaestrosMasivosBL().RegistraMasivoMaterial(request);
+                actionResult = Content(JsonConvert.SerializeObject(response));
+            }
+            catch (Exception ex)
+            {
+                HelperCtrl.GrabarLog(ex, "", PoliticaExcepcion.WebController);
+            }
+            return actionResult;
+        }
 
         #endregion
+
+        #region  Almacen
+
+        public ActionResult CargaMasivaAlmacenes(HttpPostedFileBase upload)
+        {
+            ActionResult actionResult = null;
+            var manejadorLogEventos = new ManejadorLogEventos();
+            try
+            {
+                var response = new MaestrosMasivosBL().CargarDatosMasivoAlmacen(upload);
+                actionResult = actionResult = Content(JsonConvert.SerializeObject(response));
+            }
+            catch (Exception ex)
+            {
+                HelperCtrl.GrabarLog(ex, "", PoliticaExcepcion.WebController);
+            }
+            finally
+            {
+                manejadorLogEventos.RegistrarTiempoEjecucion(HelperCtrl.ObtenerAtributosManejadorEventos(ControllerContext.ToString(), MethodBase.GetCurrentMethod().Name, HelperCtrl.ObtenerUsuario()));
+            }
+            return actionResult;
+        }
+
+        public ActionResult RegistraMasivoAlmacen(RequestMasivoAlmacenViewModel request)
+        {
+            ActionResult actionResult = null;
+            try
+            {
+                var response = new MaestrosMasivosBL().RegistraMasivoAlmacen(request);
+                actionResult = Content(JsonConvert.SerializeObject(response));
+            }
+            catch (Exception ex)
+            {
+                HelperCtrl.GrabarLog(ex, "", PoliticaExcepcion.WebController);
+            }
+            return actionResult;
+        }
+
+        #endregion
+
     }
 }

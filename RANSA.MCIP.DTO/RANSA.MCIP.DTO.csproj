@@ -92,6 +92,9 @@
     <Compile Include="Comun\ResponsePaginacionBaseDTO.cs" />
     <Compile Include="Comun\Result.cs" />
     <Compile Include="Comun\Resultado.cs" />
+    <Compile Include="MaestrosMasivos\AlmacenMasivo\MasivoAlmacenDTO.cs" />
+    <Compile Include="MaestrosMasivos\AlmacenMasivo\RequestAlmacenMasivoDTO.cs" />
+    <Compile Include="MaestrosMasivos\AlmacenMasivo\ResponseAlmacenMasivoDTO.cs" />
     <Compile Include="MaestrosMasivos\ClienteMasivo\MasivoClienteDTO.cs" />
     <Compile Include="MaestrosMasivos\ClienteMasivo\RequestClienteMasivoDTO.cs" />
     <Compile Include="MaestrosMasivos\ClienteMasivo\ResponseClienteMasivoDTO.cs" />
@@ -157,9 +160,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MaestrosMasivos\AlmacenMasivo\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

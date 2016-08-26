@@ -1,4 +1,5 @@
 ﻿using RANSA.MCIP.DTO;
+using RANSA.MCIP.DTO.MaestrosMasivos.AlmacenMasivo;
 using RANSA.MCIP.DTO.MaestrosMasivos.ClienteMasivo;
 using RANSA.MCIP.DTO.MaestrosMasivos.MaterialMasivo;
 using RANSA.MCIP.Framework;
@@ -21,7 +22,7 @@ namespace RANSA.MCIP.ServicioWCF
             var response = new ResponseClienteMasivoDTO();
             try
             {
-                response = new ClienteMasivoBL().RegistrarClienteMasivo(request);
+                response = new MaestrosMasivoBL().RegistrarClienteMasivo(request);
             }
             catch (Exception ex)
             {
@@ -29,14 +30,13 @@ namespace RANSA.MCIP.ServicioWCF
             }
             return response;
         }
-
 
         public ResponseMaterialMasivoDTO RegistraMasivoMaterial(RequestMaterialMasivoDTO request)
         {
             var response = new ResponseMaterialMasivoDTO();
             try
             {
-                response = new ClienteMasivoBL().RegistrarMaterialMasivo(request);
+                response = new MaestrosMasivoBL().RegistrarMaterialMasivo(request);
             }
             catch (Exception ex)
             {
@@ -44,5 +44,20 @@ namespace RANSA.MCIP.ServicioWCF
             }
             return response;
         }
+
+        public ResponseAlmacenMasivoDTO RegistraMasivoAlmacen(RequestAlmacenMasivoDTO request)
+        {
+            var response = new ResponseAlmacenMasivoDTO();
+            try
+            {
+                response = new MaestrosMasivoBL().RegistrarAlmacenMasivo(request);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepciones.PublicarExcepcion(ex, PoliticaExcepcion.ServicioWCF);
+            }
+            return response;
+        }
+
     }
 }

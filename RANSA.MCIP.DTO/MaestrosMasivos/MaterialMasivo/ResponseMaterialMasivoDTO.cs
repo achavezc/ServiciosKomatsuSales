@@ -12,8 +12,6 @@ namespace RANSA.MCIP.DTO.MaestrosMasivos.MaterialMasivo
          public ResponseMaterialMasivoDTO()
         {
             Result = new Resultado();
-
         }
-
     }
 }

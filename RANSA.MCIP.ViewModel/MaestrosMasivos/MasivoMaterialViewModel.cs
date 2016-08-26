@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RANSA.MCIP.DTO.MaestrosMasivos.MaterialMasivo
+namespace RANSA.MCIP.ViewModel.MaestrosMasivos
 {
-    public class MasivoMaterialDTO
+    public class MasivoMaterialViewModel
     {
         public string CodigoMaterial { get; set; }
         public string CodigoCuenta { get; set; }
