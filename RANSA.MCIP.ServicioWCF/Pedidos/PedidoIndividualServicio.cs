@@ -29,6 +29,7 @@ namespace RANSA.MCIP.ServicioWCF
 
             return response;
         }
+
         public ResponseRegistarPedidoDTO ActualizarPedidoIndividual(RequestRegistroPedidoIndividualDTO request)
         {
             ResponseRegistarPedidoDTO response = new ResponseRegistarPedidoDTO();
@@ -44,6 +45,7 @@ namespace RANSA.MCIP.ServicioWCF
 
             return response;
         }
+
         public ResponseListarPedidoDTO ListarPedidoIndividual(RequestListarPedidoIndividualDTO request)
         {
             ResponseListarPedidoDTO response = new ResponseListarPedidoDTO();
@@ -110,6 +112,7 @@ namespace RANSA.MCIP.ServicioWCF
             }
             return response;
         }
+
         public ResponseValidarCamposDTO ValidarPedidoIndividual(RequestValidarCamposDTO request)
         {
 
@@ -130,9 +133,7 @@ namespace RANSA.MCIP.ServicioWCF
             }
             return response;
         }
-
-
-
+        
         public ResponseRegistarPedidoDTO RegistrarPedidoIndividualMasivo(List<RequestRegistroPedidoIndividualDTO> request)
         {
             ResponseRegistarPedidoDTO response = new ResponseRegistarPedidoDTO();
@@ -149,12 +150,27 @@ namespace RANSA.MCIP.ServicioWCF
             return response;
         }
 
+         
 
 
-
-
-
-
-
+        public ResponseRegistarPedidoDTO CambiarEstadoPedidoIndivial(CambiarEstadoPedidoDTO request)
+        {
+            ResponseRegistarPedidoDTO response = new ResponseRegistarPedidoDTO();
+            try
+            {
+                PedidoIndividualBL pedidoBL = new PedidoIndividualBL();
+                response = pedidoBL.CambiarEstadoPedidoIndividual(request);
+            }
+            catch (Exception ex)
+            {
+                response.Result = new Resultado
+                {
+                    IdError = Guid.NewGuid(),
+                    Satisfactorio = false,
+                    Mensaje = "Ocurrio un problema interno en el servicio"
+                };
+            }
+            return response;
+        }
     }
 }

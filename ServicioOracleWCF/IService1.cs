@@ -44,6 +44,10 @@ namespace ServicioOracleWCF
         ResponseObtenerCorrelativoMaestro ObtenerCorrelativoPedido();
 
 
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/CambiarEstadoPedidoIndivial", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        ResponseRegistarPedidoDTO CambiarEstadoPedidoIndivial(CambiarEstadoPedidoDTO request);
+
     }
 
 }

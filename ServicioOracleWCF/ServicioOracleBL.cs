@@ -766,5 +766,42 @@ namespace ServicioOracleWCF
             return response;
         }
 
+        public ResponseRegistarPedidoDTO CambiarEstadoPedido(CambiarEstadoPedidoDTO request)
+        {
+            ResponseRegistarPedidoDTO response = new ResponseRegistarPedidoDTO();
+            bool result = false;
+            var cnx = new ConexionBD();
+            OracleConnection conexion = new OracleConnection();
+            conexion = cnx.conectar();
+            try
+            {
+                conexion.Open();
+                using (OracleCommand cmd = new OracleCommand(cnx.NombrePaqueteSeguimientoPedido() + "pa_mcippedidos_cambiarEstado", conexion))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("v_idpedido", string.IsNullOrEmpty(request.Id) ? (object)DBNull.Value : request.Id);
+                    cmd.Parameters.AddWithValue("v_estadopedido", string.IsNullOrEmpty(request.EstadoPedido) ? (object)DBNull.Value : request.EstadoPedido);
+
+                    cmd.Parameters.Add("v_xestado", OracleType.VarChar, 200).Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                    response.Result.Mensaje = cmd.Parameters["v_xestado"].Value.ToString();
+                    response.Result.Satisfactorio = true;
+                }
+                conexion.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return response;
+        }
     }
 }

@@ -51,6 +51,8 @@ namespace ModuloPilotoSodexo.Controllers
             ActionResult actionResult = null;
             try
             {
+                var usuario = Helper.HelperCtrl.ObtenerUsuario();
+                request.UsuarioRegistro = usuario;
                 var response = new PedidoBL().RegistroPedidoIndividual(request);
                 actionResult = Content(JsonConvert.SerializeObject(response));
             }
@@ -60,11 +62,16 @@ namespace ModuloPilotoSodexo.Controllers
             }
             return actionResult;
         }
+
         public ActionResult ActualizarPedidoIndividual(RequestRegistroPedidoIndividualViewModel request)
         {
             ActionResult actionResult = null;
             try
             {
+                var usuario = Helper.HelperCtrl.ObtenerUsuario();
+                request.UsuarioModificacion = usuario;
+
+
                 var response = new PedidoBL().ActualizaPedidoIndividual(request);
                 actionResult = Content(JsonConvert.SerializeObject(response));
             }
@@ -74,6 +81,7 @@ namespace ModuloPilotoSodexo.Controllers
             }
             return actionResult;
         }
+
         public ActionResult ObtenerDetallePedidoIndividual(string idPedido)
         {
             ActionResult actionResult = null;
@@ -104,7 +112,6 @@ namespace ModuloPilotoSodexo.Controllers
             return actionResult;
         }
 
-
         public ActionResult ValidarPedidoIndividual(string codigoTipoPedido, string codigoCuenta)
         {
             ActionResult actionResult = null;
@@ -119,6 +126,7 @@ namespace ModuloPilotoSodexo.Controllers
             }
             return actionResult;
         }
+
         public PedidoViewModel Registrar_aux(string nroPedido)
         {
             try
@@ -410,15 +418,15 @@ namespace ModuloPilotoSodexo.Controllers
                 }));
             }
         }
- 
-        public ActionResult CargaMasivaPedidoIndividual(HttpPostedFileBase upload )
+
+        public ActionResult CargaMasivaPedidoIndividual(HttpPostedFileBase upload)
         {
             ActionResult actionResult = null;
             var manejadorLogEventos = new ManejadorLogEventos();
             try
-            { 
-                    var response = new PedidoBL().CargarDatosMasivos(upload );
-                    actionResult = actionResult = Content(JsonConvert.SerializeObject(response));
+            {
+                var response = new PedidoBL().CargarDatosMasivos(upload);
+                actionResult = actionResult = Content(JsonConvert.SerializeObject(response));
             }
             catch (Exception ex)
             {
@@ -449,5 +457,19 @@ namespace ModuloPilotoSodexo.Controllers
             return actionResult;
         }
 
+        public ActionResult CambiarEstadoPedidoIndividual(CambiarEstadoPedidoViewModel request)
+        {
+            ActionResult actionResult = null;
+            try
+            {
+                var response = new PedidoBL().CambiarEstadoPedidoIndivial(request);
+                actionResult = Content(JsonConvert.SerializeObject(response));
+            }
+            catch (Exception ex)
+            {
+                HelperCtrl.GrabarLog(ex, "", PoliticaExcepcion.WebController);
+            }
+            return actionResult;
+        }
     }
 }

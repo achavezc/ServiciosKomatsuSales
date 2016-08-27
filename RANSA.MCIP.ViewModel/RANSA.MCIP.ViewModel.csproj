@@ -72,6 +72,7 @@
     <Compile Include="MaestrosMasivos\Almacen Masivo\ResponseAlmacenMasivoViewModel.cs" />
     <Compile Include="MaestrosMasivos\Material Masivo\ResponseMaterialMasivoViewModel.cs" />
     <Compile Include="Pedidos\BusquedaPedidosViewModel.cs" />
+    <Compile Include="Pedidos\CambiarEstadoPedidoViewModel.cs" />
     <Compile Include="Pedidos\ConfiguracionCamposPedidosViewModel.cs" />
     <Compile Include="Pedidos\EliminarPedidoViewModel.cs" />
     <Compile Include="Pedidos\DetalleAnexoAdjuntoPedidoViewModel.cs" />

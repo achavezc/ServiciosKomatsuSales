@@ -33,6 +33,7 @@ namespace ModuloPilotoSodexo.Agente.BL
                 Mapper.CreateMap<DetalleAnexoPedidoViewModel, DetalleAnexoPedidoDTO>();
                 Mapper.CreateMap<DetalleAnexoAdjuntoPedidoViewModel, DetalleAnexoAdjuntoPedidoDTO>();
                 var requestAgente = GR.Scriptor.Framework.Helper.MiMapper<RequestRegistroPedidoIndividualViewModel, RequestRegistroPedidoIndividualDTO>(request);
+
                 var responseRegistroPedidoDto = new PedidoProxyRest().RegistrarPedido(requestAgente);
 
                 responseRegistroPedido.Result.Satisfactorio = responseRegistroPedidoDto.Result.Satisfactorio;
@@ -107,6 +108,7 @@ namespace ModuloPilotoSodexo.Agente.BL
             var responseRegistroPedido = new ResponseRegistarPedidoViewModel();
             try
             {
+
                 //Mapper.CreateMap<DetallePedidoViewModel, DetallePedidoDTO>();
                 Mapper.CreateMap<DetallePedidoViewModel, DetallePedidoDTO>();
                 Mapper.CreateMap<DetalleAnexoPedidoViewModel, DetalleAnexoPedidoDTO>();
@@ -263,10 +265,11 @@ namespace ModuloPilotoSodexo.Agente.BL
                 detallePedidoDTO.ListaPedidoAnexos.ForEach(x =>
                 {
                     var item = new DetalleAnexoPedidoViewModel();
+                    contador = contador + 1;
                     item.FileName = x.FileName;
                     item.Descripcion = x.Descripcion;
                     item.IdPedidoAnexo = x.IdPedidoAnexo;
-                    item.Item = Convert.ToString(contador++);
+                    item.Item = Convert.ToString(contador);
                     item.IdPedido = x.IdPedido;
                     item.FechaRegistro = x.FechaRegistro;
                     item.UsuarioRegistro = x.UsuarioRegistro;
@@ -321,7 +324,6 @@ namespace ModuloPilotoSodexo.Agente.BL
 
 
         #region Carga Masivo Pedido Individual
-        //MASIVO JM
 
         public ResponseRegistarPedidoViewModel RegistroMasivoPedidoIndividualMasivo(RequestRegistroMasivoPedidoIndividualViewModel request)
         {
@@ -352,14 +354,12 @@ namespace ModuloPilotoSodexo.Agente.BL
 
         public List<RequestRegistroPedidoIndividualViewModel> CargarDatosMasivos(HttpPostedFileBase upload)
         {
-            //List<RequestRegistroPedidoIndividualViewModel> ListaResponse = new List<RequestRegistroPedidoIndividualViewModel>();
             List<RequestRegistroPedidoIndividualViewModel> ListaPedidoIndividualMasivo = new List<RequestRegistroPedidoIndividualViewModel>();
             var usuario = Helper.HelperCtrl.ObtenerUsuario();
             DataSet DTsCargaMAsivo = new DataSet("CargaMasiva");
             bool hasHeader = true;
             try
             {
-                //var ListaPedidoIndividualMasivo = new List<RequestRegistroPedidoIndividualViewModel>();
                 if (upload != null && upload.ContentLength > 0)
                 {
                     using (var pck = new OfficeOpenXml.ExcelPackage())
@@ -454,5 +454,29 @@ namespace ModuloPilotoSodexo.Agente.BL
 
         #endregion
 
+
+        public ResponseRegistarPedidoViewModel CambiarEstadoPedidoIndivial(CambiarEstadoPedidoViewModel request)
+        {
+            var responseRegistroPedido = new ResponseRegistarPedidoViewModel();
+            try
+            {
+                //var requestAgente = new List<EliminarPedidoDTO>();
+                //request.ForEach(x =>
+                //{
+                //    requestAgente.Add(new EliminarPedidoDTO() { Id = x.Id });
+                //});
+                var requestAgente = GR.Scriptor.Framework.Helper.MiMapper<CambiarEstadoPedidoViewModel, CambiarEstadoPedidoDTO>(request);
+                var responseRegistroPedidoDto = new PedidoProxyRest().CambiarEstadoPedidoIndividual(requestAgente);
+                responseRegistroPedido.Result.Satisfactorio = responseRegistroPedidoDto.Result.Satisfactorio;
+                responseRegistroPedido.Result.idPedido = responseRegistroPedidoDto.Result.idPedido;
+                responseRegistroPedido.Result.Mensaje = responseRegistroPedidoDto.Result.Mensaje;
+            }
+            catch (Exception ex)
+            {
+                responseRegistroPedido.Result = new RANSA.MCIP.DTO.Result { Satisfactorio = false };
+                ManejadorExcepciones.PublicarExcepcion(ex, PoliticaExcepcion.AgenteServicios);
+            }
+            return responseRegistroPedido;
+        }
     }
 }

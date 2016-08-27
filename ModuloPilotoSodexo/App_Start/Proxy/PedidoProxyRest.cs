@@ -93,5 +93,17 @@ namespace ModuloPilotoSodexo.Proxy
 
             return response;
         }
+
+        public ResponseRegistarPedidoDTO CambiarEstadoPedidoIndividual(CambiarEstadoPedidoDTO request)
+        {
+            var url = ConfigurationManager.AppSettings["UrlCambiarEstadoPedido"];
+
+            var response = DeserializarJSON<CambiarEstadoPedidoDTO, ResponseRegistarPedidoDTO>(request, url);
+            if (response == null)
+                throw new Exception(string.Format("Problemas con el servicio: {0}", url));
+
+            return response;
+        }
+
     }
 }

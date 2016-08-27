@@ -24,14 +24,14 @@ namespace ServicioOracleWCF
                 request.ListaDetallePedido.ForEach(x =>
                 {
                     x.IdPedido = response.Result.idPedido;
-
+                    x.UsuarioRegistro = request.UsuarioModificacion;
                     servicioBL.RegistrarDetallePedido(x);
                 });
 
                 request.ListaPedidoAnexos.ForEach(x =>
                 {
                     x.IdPedido = response.Result.idPedido;
-
+                    x.UsuarioRegistro = request.UsuarioRegistro;
                     var responseAdjunto = servicioBL.RegistrarDetalleAnexoPedido(x);
                     request.ListaPedidoAnexosAdjuntos.ForEach(c =>
                     {
@@ -74,10 +74,12 @@ namespace ServicioOracleWCF
                     if (idTemporal.Length < 4)
                     {
                         x.IdPedido = request.IdPedido;
+                        x.UsuarioRegistro = request.UsuarioRegistro;
                         servicioBL.RegistrarDetallePedido(x);
                     }
                     else
                     {
+                        x.UsuarioModificacion = request.UsuarioModificacion;
                         servicioBL.ActualizarDetallePedido(x);
                     }
                 });
@@ -88,6 +90,7 @@ namespace ServicioOracleWCF
                     if (idTemporal.Length < 4)
                     {
                         x.IdPedido = request.IdPedido;
+                        x.UsuarioRegistro = request.UsuarioRegistro;
                         var responseAdjunto = servicioBL.RegistrarDetalleAnexoPedido(x);
                         request.ListaPedidoAnexosAdjuntos.ForEach(y =>
                             {
@@ -99,6 +102,7 @@ namespace ServicioOracleWCF
                     }
                     else
                     {
+                        x.UsuarioModificacion = request.UsuarioModificacion;
                         servicioBL.ActualizarDetalleAnexoPedido(x);
                     }
                 });
@@ -317,6 +321,26 @@ namespace ServicioOracleWCF
             catch (Exception ex)
             {
                 response = null;
+            }
+            return response;
+        }
+
+        public ResponseRegistarPedidoDTO CambiarEstadoPedidoIndivial(CambiarEstadoPedidoDTO request)
+        {
+            ServicioOracleBL servicioBL = new ServicioOracleBL();
+            ResponseRegistarPedidoDTO response = new ResponseRegistarPedidoDTO();
+            try
+            {
+                response = servicioBL.CambiarEstadoPedido(request);
+            }
+            catch (Exception ex)
+            {
+                response.Result = new Resultado
+                {
+                    IdError = Guid.NewGuid(),
+                    Satisfactorio = false,
+                    Mensaje = "Ocurrio un problema interno en el servicio"
+                };
             }
             return response;
         }

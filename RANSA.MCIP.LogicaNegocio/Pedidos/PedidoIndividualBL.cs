@@ -46,6 +46,7 @@ namespace RANSA.MCIP.LogicaNegocio
             }
             return response;
         }
+
         public ResponseRegistarPedidoDTO EliminarPedidoIndividual(List<EliminarPedidoDTO> request)
         {
             ResponseRegistarPedidoDTO response = new ResponseRegistarPedidoDTO();
@@ -66,6 +67,7 @@ namespace RANSA.MCIP.LogicaNegocio
             }
             return response;
         }
+
         public ResponseRegistarPedidoDTO ActualizarPedidoIndividual(RequestRegistroPedidoIndividualDTO request)
         {
             ResponseRegistarPedidoDTO response = new ResponseRegistarPedidoDTO();
@@ -86,6 +88,7 @@ namespace RANSA.MCIP.LogicaNegocio
             }
             return response;
         }
+
         public ResponseListarPedidoDTO ListarPedidoIndividual(RequestListarPedidoIndividualDTO request)
         {
             var response = new ResponseListarPedidoDTO();
@@ -140,6 +143,7 @@ namespace RANSA.MCIP.LogicaNegocio
 
             return response;
         }
+
         public ResponseDetallePedidoDTO ObtenerDetallePedidoIndividual(RequestDetallePedidoIndividualDTO request)
         {
             var response = new ResponseDetallePedidoDTO();
@@ -228,8 +232,6 @@ namespace RANSA.MCIP.LogicaNegocio
             return response;
         }
 
-
-        // MASIVO JM
         public ResponseRegistarPedidoDTO RegistrarPedidoIndividualMasivo(List<RequestRegistroPedidoIndividualDTO> request)
         {
             ResponseRegistarPedidoDTO response = new ResponseRegistarPedidoDTO();
@@ -266,6 +268,27 @@ namespace RANSA.MCIP.LogicaNegocio
             }
             return response;
 
+        }
+
+        public ResponseRegistarPedidoDTO CambiarEstadoPedidoIndividual(CambiarEstadoPedidoDTO request)
+        {
+            ResponseRegistarPedidoDTO response = new ResponseRegistarPedidoDTO();
+            try
+            {
+                var agente = new AgenteServicioOracle();
+                response = agente.CambiarEstadoPedidoIndividual(request);
+            }
+            catch (Exception ex)
+            {
+                response.Result = new Resultado
+                {
+                    IdError = Guid.NewGuid(),
+                    Satisfactorio = false,
+                    Mensaje = "Ocurrio un problema interno en el servicio"
+                };
+                ManejadorExcepciones.PublicarExcepcion(ex, PoliticaExcepcion.LogicaNegocio);
+            }
+            return response;
         }
 
     }

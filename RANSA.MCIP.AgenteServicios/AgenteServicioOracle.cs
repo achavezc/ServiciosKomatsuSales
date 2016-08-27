@@ -55,7 +55,6 @@ namespace RANSA.MCIP.AgenteServicios
             return response;
         }
 
-
         public ResponseRegistarPedidoDTO RegistrarPedidoIndividualMasivo(List<RequestRegistroPedidoIndividualDTO> request)
         {
             var url = ConfigurationManager.AppSettings["UrlRegistrarPedidoMasivo"];
@@ -64,16 +63,21 @@ namespace RANSA.MCIP.AgenteServicios
             return response;
         }
 
-        /// <summary>
-        ///  Nuevo
-        /// </summary>
-        /// <returns></returns>
         public ResponseObtenerCorrelativoMaestro ObtenerCorrelativoPedido()
         {
             var url = ConfigurationManager.AppSettings["UrlObtenerCorrelativoPedido"];
             ResponseObtenerCorrelativoMaestro response = new ResponseObtenerCorrelativoMaestro();
-            response = DeserializarJSON<string,ResponseObtenerCorrelativoMaestro>("", url);
+            response = DeserializarJSON<string, ResponseObtenerCorrelativoMaestro>("", url);
             return response;
         }
+
+        public ResponseRegistarPedidoDTO CambiarEstadoPedidoIndividual(CambiarEstadoPedidoDTO request)
+        {
+            var url = ConfigurationManager.AppSettings["UrlCambiarEstadopedido"];
+            ResponseRegistarPedidoDTO response = new ResponseRegistarPedidoDTO();
+            response = DeserializarJSON<CambiarEstadoPedidoDTO, ResponseRegistarPedidoDTO>(request, url);
+            return response;
+        }
+
     }
 }

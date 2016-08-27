@@ -41,5 +41,12 @@ namespace RANSA.MCIP.ServicioWCF
         [OperationContract]
         [WebInvoke(UriTemplate = "/RegistrarPedidoIndividualMasivo", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         ResponseRegistarPedidoDTO RegistrarPedidoIndividualMasivo(List<RequestRegistroPedidoIndividualDTO> request);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/CambiarEstadoPedidoIndivial", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        ResponseRegistarPedidoDTO CambiarEstadoPedidoIndivial(CambiarEstadoPedidoDTO request);
+
+
+
     }
 }
