@@ -460,11 +460,6 @@ namespace ModuloPilotoSodexo.Agente.BL
             var responseRegistroPedido = new ResponseRegistarPedidoViewModel();
             try
             {
-                //var requestAgente = new List<EliminarPedidoDTO>();
-                //request.ForEach(x =>
-                //{
-                //    requestAgente.Add(new EliminarPedidoDTO() { Id = x.Id });
-                //});
                 var requestAgente = GR.Scriptor.Framework.Helper.MiMapper<CambiarEstadoPedidoViewModel, CambiarEstadoPedidoDTO>(request);
                 var responseRegistroPedidoDto = new PedidoProxyRest().CambiarEstadoPedidoIndividual(requestAgente);
                 responseRegistroPedido.Result.Satisfactorio = responseRegistroPedidoDto.Result.Satisfactorio;

@@ -776,13 +776,14 @@ namespace ServicioOracleWCF
             try
             {
                 conexion.Open();
-                using (OracleCommand cmd = new OracleCommand(cnx.NombrePaqueteSeguimientoPedido() + "pa_mcippedidos_cambiarEstado", conexion))
+                using (OracleCommand cmd = new OracleCommand(cnx.NombrePaqueteSeguimientoPedido() + "pa_pedido_cambio_estado", conexion))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("v_idpedido", string.IsNullOrEmpty(request.Id) ? (object)DBNull.Value : request.Id);
                     cmd.Parameters.AddWithValue("v_estadopedido", string.IsNullOrEmpty(request.EstadoPedido) ? (object)DBNull.Value : request.EstadoPedido);
-
+                    cmd.Parameters.AddWithValue("v_usuariomodificacion", string.IsNullOrEmpty(request.UsuarioModificacion) ? (object)DBNull.Value : request.UsuarioModificacion);
+                    cmd.Parameters.AddWithValue("v_fechamodificacion", DateTime.Now);
                     cmd.Parameters.Add("v_xestado", OracleType.VarChar, 200).Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
                     response.Result.Mensaje = cmd.Parameters["v_xestado"].Value.ToString();

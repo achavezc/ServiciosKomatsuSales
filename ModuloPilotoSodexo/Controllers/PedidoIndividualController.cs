@@ -462,6 +462,8 @@ namespace ModuloPilotoSodexo.Controllers
             ActionResult actionResult = null;
             try
             {
+                var usuario = Helper.HelperCtrl.ObtenerUsuario();
+                request.UsuarioModificacion = usuario;
                 var response = new PedidoBL().CambiarEstadoPedidoIndivial(request);
                 actionResult = Content(JsonConvert.SerializeObject(response));
             }

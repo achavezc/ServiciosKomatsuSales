@@ -10,5 +10,6 @@ namespace RANSA.MCIP.ViewModel.Pedidos
     {
         public string Id { get; set; }
         public string EstadoPedido { get; set; }
+        public string UsuarioModificacion { get; set; }
     }
 }
