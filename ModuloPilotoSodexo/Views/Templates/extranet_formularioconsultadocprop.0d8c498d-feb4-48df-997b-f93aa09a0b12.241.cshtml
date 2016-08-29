@@ -1,0 +1,12 @@
+@{
+Layout = "Extranet_PaginaMaestraUsuarioLogeado";
+//ScriptorContent mimodel=Common.ScriptorClient.GetChannel(new Guid("F54D2681-E6CC-4F32-90EB-4E68C26E7245")).Properties.Content;
+
+}
+@using Viatecla.Factory.Scriptor
+@using System.Web
+@using System.Text
+@model ScriptorContent
+
+  
+   	@Html.Template((ScriptorContent)@Model, "Extranet_FormularioConsultaDocPropAux")

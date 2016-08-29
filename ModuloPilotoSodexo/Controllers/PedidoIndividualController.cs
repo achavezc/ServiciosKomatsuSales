@@ -38,7 +38,11 @@ namespace ModuloPilotoSodexo.Controllers
             PedidoViewModel pedidoViewModel = Registrar_aux("");
             return Content(Newtonsoft.Json.JsonConvert.SerializeObject(pedidoViewModel));
         }
-
+        public ActionResult Consultar()
+        {
+            ConsultaPedidoViewModel consultaPedidoViewModel = ConsultaPedido_Aux();
+            return Content(Newtonsoft.Json.JsonConvert.SerializeObject(consultaPedidoViewModel));
+        }
         public ActionResult Modificar(string nroPedido)
         {
             PedidoViewModel pedidoViewModel = Registrar_aux(nroPedido);
@@ -213,6 +217,25 @@ namespace ModuloPilotoSodexo.Controllers
             }
         }
 
+        public ConsultaPedidoViewModel ConsultaPedido_Aux()
+        {
+            try
+            {
+                ConsultaPedidoViewModel consultapPedidoViewModel = new ConsultaPedidoViewModel();
+                consultapPedidoViewModel.ObjetosFormulario = new ConsultaPedidosObjetosFormularioViewModel();
+                consultapPedidoViewModel.DatosFormulario = new ConsultaPedidosDatosFormularioViewModel();
+                EstadoBL estadoBL = new EstadoBL();
+                var responseListaEstado = estadoBL.ListarEstados();
+                consultapPedidoViewModel.ObjetosFormulario.ListaEstado = GenerarListaEstado(responseListaEstado.Estados);
+                return consultapPedidoViewModel;
+            }
+            catch (Exception ex)
+            {
+                (new ManejadorLog()).RegistrarEvento(MethodBase.GetCurrentMethod().Name, ex.Message, ex.StackTrace);
+                return null;
+            }
+        }
+
         private List<ElementoDTO> GenerarListaPuntoDestino(List<ClienteDTO> listaCliente)
         {
             List<ElementoDTO> lista = new List<ElementoDTO>();
@@ -271,6 +294,20 @@ namespace ModuloPilotoSodexo.Controllers
                 lista.Add(new ElementoDTO()
                 {
                     Codigo = item.CodigoTipoPedido,
+                    Nombre = item.Descripcion
+                });
+            }
+            return lista;
+        }
+        private List<ElementoDTO> GenerarListaEstado(List<EstadoDTO> listaEstado)
+        {
+            List<ElementoDTO> lista = new List<ElementoDTO>();
+
+            foreach (var item in listaEstado)
+            {
+                lista.Add(new ElementoDTO()
+                {
+                    Codigo = item.Codigo,
                     Nombre = item.Descripcion
                 });
             }

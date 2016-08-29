@@ -68,6 +68,7 @@
     <Compile Include="MaestrosMasivos\ClienteMasivoDA.cs" />
     <Compile Include="Maestros\AlmacenDA.cs" />
     <Compile Include="Maestros\ClienteDA.cs" />
+    <Compile Include="Maestros\EstadoDA.cs" />
     <Compile Include="Maestros\MaestroDA.cs" />
     <Compile Include="Maestros\MaterialDA.cs" />
     <Compile Include="Maestros\CuentaDA.cs" />

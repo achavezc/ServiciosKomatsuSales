@@ -56,6 +56,7 @@
     <Compile Include="MaestroBase.cs" />
     <Compile Include="Maestros\Cliente.cs" />
     <Compile Include="Maestros\Almacen.cs" />
+    <Compile Include="Maestros\Estado.cs" />
     <Compile Include="Maestros\Material.cs" />
     <Compile Include="Maestros\TipoPedido.cs" />
     <Compile Include="Maestros\Negocio.cs" />

@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Maestros\Estado\EstadoDTO.cs" />
+    <Compile Include="Maestros\Estado\ResponseListarEstado.cs" />
     <Compile Include="Pedido\CambiarEstadoPedidoDTO.cs" />
     <Compile Include="Comun\Adjunto\AdjuntarArchivosDTO.cs" />
     <Compile Include="Comun\Adjunto\EliminarArchivoAdjuntoDTO.cs" />
