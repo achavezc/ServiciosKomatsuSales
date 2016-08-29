@@ -1,0 +1,81 @@
+@using Viatecla.Factory.Scriptor
+@model ScriptorContent 
+<div id="frmLogin" class="block_content">
+
+    @using (Html.ScriptorForm(@Model.Parts.formulario_login[0] as ScriptorChannel, 
+        (string)null, null, new {@class="DivContentForm", target = "frmLoginIframe" }))
+    {
+        
+    }
+    
+   
+    <div class="fila">
+        <span class="textoLogin">@Model.Parts.Texto1.ToString().Trim(), <a href="#" id="btnOlvido">click aqui</a></span>
+    </div>
+          <!--
+    <div class="fila">
+        <span class="textoLogin">@Model.Parts.Texto2.ToString().Trim(), <a href="#" id="btnRegistro">Registrarse</a></span>
+    </div>
+          -->
+     
+    <iframe name="frmLoginIframe" id="frmLoginIframe" style="display: none;" src="about:blank"></iframe>
+</div>
+@{
+    ScriptorChannel chan=Model.Parts.canal_autenticado[0].Properties.Content.Parts.PaginaInicio[0] as ScriptorChannel;
+    String urlChannel=Url.ScriptorChannel(chan).ToString().Trim();
+}
+<script type="text/javascript">
+    $(function(){
+        
+        //los datos del formulario login a reemplazar
+        var datosLogin={
+            "submit":"@Model.Parts.NombreBoton",
+            "mensajeError":"@Model.Parts.MensajeError",
+            "urlLogin":"@Model.Parts.UrlLogin",
+            "urlHome":"@Html.Raw(@urlChannel)"
+        };
+        var login = $("#frmLogin form");
+        
+        login=$("#frmLogin form");
+        login.find(":submit").val(datosLogin.submit);
+          
+        login.find("input[name=Usuario], input[name=Contrasena]").attr("maxlength",50);
+        login.find("input[name=Usuario]").addClass("soloalfanumerico inc_arroba inc_backslash inc_punto");
+        $(login).submit(function(){
+            var valorUsuario=login.find("input[name=Usuario]").val();
+            if(!validarCorreo(valorUsuario) && !validarCuenta(valorUsuario)){
+                MiError("El nombre de usuario no tiene el formato correcto.")
+                return false;
+            }
+            
+            if(!$(this).data("validator").valid())
+                return false;
+
+            if(login.find("input[name=Contrasena]").val()==="")
+                return false;
+        
+            miBlock(true);
+            login.find(":submit").attr("disabled","disabled");
+            $.ajax({
+                url:datosLogin.urlLogin,
+                type:"POST",
+                headers: { __RequestVerificationToken: $('input[name=__RequestVerificationToken]').val() },
+                data:"usuario="+encodeURIComponent(login.find("input[name=Usuario]").val())
+                    +"&Password="+encodeURIComponent(login.find("input[name=Contrasena]").val()),
+                dataType:"json",
+                success:function(data){
+                    if(data.Result.Success===true){
+                        window.location.href=datosLogin.urlHome;
+                    }
+                    else{
+                        MiError(datosLogin.mensajeError);
+                    }
+                    login.find(":submit").removeAttr("disabled");
+                    miBlock(false);
+                }
+            });
+
+            return false;
+        });
+    });
+</script>

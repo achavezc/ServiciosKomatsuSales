@@ -74,6 +74,9 @@
     <Compile Include="Pedidos\BusquedaPedidosViewModel.cs" />
     <Compile Include="Pedidos\CambiarEstadoPedidoViewModel.cs" />
     <Compile Include="Pedidos\ConfiguracionCamposPedidosViewModel.cs" />
+    <Compile Include="Pedidos\ConsultaPedidosObjetosFormularioViewModel.cs" />
+    <Compile Include="Pedidos\ConsultaPedidosDatosFormularioViewModel.cs" />
+    <Compile Include="Pedidos\ConsultaPedidoViewModel.cs" />
     <Compile Include="Pedidos\EliminarPedidoViewModel.cs" />
     <Compile Include="Pedidos\DetalleAnexoAdjuntoPedidoViewModel.cs" />
     <Compile Include="Pedidos\DetalleAnexoPedidoViewModel.cs" />

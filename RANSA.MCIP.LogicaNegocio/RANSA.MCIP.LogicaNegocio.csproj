@@ -67,6 +67,7 @@
     <Compile Include="MaestrosMasivos\MaestrosMasivoBL.cs" />
     <Compile Include="Maestros\ClienteBL.cs" />
     <Compile Include="Maestros\AlmacenBL.cs" />
+    <Compile Include="Maestros\EstadoBL.cs" />
     <Compile Include="Maestros\MaestroBL.cs" />
     <Compile Include="Maestros\MaterialBL.cs" />
     <Compile Include="Maestros\TipoPedidoBL.cs" />

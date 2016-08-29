@@ -1,0 +1,306 @@
+@using Viatecla.Factory.Scriptor
+@using System.Web
+@using System.Text
+
+
+@model ScriptorContent
+@{
+	Layout=null;
+	ScriptorContent grilla=Model;
+}
+@{
+	int i=0;
+    StringBuilder st = new StringBuilder();
+    StringBuilder st2 = new StringBuilder();
+    StringBuilder st3 = new StringBuilder();
+	string nombreGrilla1= HttpUtility.HtmlEncode(grilla.Parts.objgrilla);
+        
+  		StringBuilder ct = new StringBuilder();
+        //ScriptorContent grilla = modelRB.Parts.grillas[i];
+        st.Append("var " + nombreGrilla1 + " = {");
+        st.Append("Nombre:\"" + HttpUtility.HtmlEncode(grilla.Parts.Nombre)+"\",");
+        foreach (ScriptorContent col in grilla.Parts.columnas)
+        {
+            ct.Append("{");
+            ct.Append("name:\"" + HttpUtility.HtmlEncode(col.Parts.IdColumna) +"\",");
+          
+          	string nombreColumna="";
+          	string nombreColDefault=col.Parts.Nombre;
+          	string nombreColCliente="";
+          	string nombreColGrupo="";
+          	string codigoGrupoCentroDistribucion = Convert.ToString(Session["CodigoGrupoCentroDistrubicion"]);
+            string codigoCliente = Convert.ToString(Session["CodigoCliente"]);
+            foreach (ScriptorContent clientesAsociados in col.Parts.NombrePorCliente)
+            {
+              if(clientesAsociados.Parts.Cliente.Content.Parts.Codigo == codigoCliente)
+              {
+                  nombreColCliente=clientesAsociados.Parts.NombreColumna;
+                  break;
+              }
+            }
+          	
+            foreach (ScriptorContent gruposAsociados in col.Parts.NombrePorGrupoCentroDistribucion)
+            {
+              if(gruposAsociados.Parts.GrupoCentroDistribucion.Content.Parts.Codigo == codigoGrupoCentroDistribucion)
+              {
+                  nombreColGrupo=gruposAsociados.Parts.NombreColumna;
+                  break;
+              }
+            }
+            if(String.IsNullOrEmpty(nombreColCliente))
+            {
+                if(String.IsNullOrEmpty(nombreColGrupo))
+                {
+                    nombreColumna=nombreColDefault;
+                }
+                else
+                {
+                  	nombreColumna=nombreColGrupo;                  
+                }
+            }
+            else
+            {
+                nombreColumna=nombreColCliente;
+            }
+                
+          
+            ct.Append("caption:\"" + HttpUtility.HtmlEncode(nombreColumna) +"\",");
+            if(!(col.Parts.ancho.ToString()=="auto"||String.IsNullOrEmpty(col.Parts.ancho)==true))
+            {
+                ct.Append("width:\"" + HttpUtility.HtmlEncode(col.Parts.ancho) +"\",");         
+            }
+             else
+            {
+          		ct.Append("width:\"20%\",");
+          	}
+            if(col.Parts.formato.Value.ToString()=="date")
+            {
+              ct.Append("formatter: function (cellvalue, options, rowObject) {");
+              ct.Append("cellvalue=''+cellvalue;if (cellvalue=='undefined'||cellvalue == '' || cellvalue==undefined || cellvalue==null || cellvalue=='0') {");
+              ct.Append("return '';");
+              ct.Append("}");
+              ct.Append("else {");
+              ct.Append("return cellvalue.substr(6,2)+'/'+cellvalue.substr(4,2)+'/'+cellvalue.substr(0,4);");
+              ct.Append("}");
+              ct.Append("},");
+            }
+            else
+            {
+               	if(col.Parts.formato.Value.ToString()=="hora")
+                {
+                    ct.Append("formatter: function (cellvalue, options, rowObject) {");
+                    ct.Append("cellvalue=''+cellvalue;if (cellvalue=='undefined'||cellvalue == '' || cellvalue==undefined || cellvalue==null) {");
+                    ct.Append("return '';");
+                    ct.Append("}");
+                    ct.Append("else {");
+                    ct.Append("return cellvalue.substr(0,2)+':'+cellvalue.substr(2,2)+':'+cellvalue.substr(4,2);");
+                    ct.Append("}");
+                    ct.Append("},");
+                }
+                else
+                {
+              		ct.Append("format:\"0\",");
+                }
+            }
+            if(col.Parts.formato.Value.ToString()=="numeric")
+            {
+            	ct.Append("formatter:'currency',formatoptions:{defaulValue:0,thousandsSeparator:' ',decimalPlaces:"+col.Parts.NroDecimales+",suffix:''},");
+            }
+            if(String.IsNullOrEmpty(col.Parts.Direction.Value)==true)
+            {
+               if(col.Parts.formato.Value.ToString()=="numeric"||col.Parts.formato.Value.ToString()=="integer")
+               {
+            	  ct.Append("align:\"right\",");
+               }
+               else
+               {
+                 if(col.Parts.formato.Value.ToString()=="date"|| col.Parts.formato.Value.ToString()=="hora")
+                 {
+                     ct.Append("align:\"center\",");
+                 }
+                 else
+                 {
+                     ct.Append("align:\"left\",");
+                 }
+               }
+            }
+            else
+            {
+                if(col.Parts.formato.Value.ToString()!="")
+                {
+                  ct.Append("align:\""+col.Parts.Direction.Value+"\",");
+                }
+                 else
+                 {
+                  ct.Append("align:\"left\",");
+                 }
+            }
+            ct.Append("hidden:" + HttpUtility.HtmlEncode(col.Parts.oculto=="0"?"false":"true") +",");
+            ct.Append("key:" + HttpUtility.HtmlEncode(col.Parts.llave=="0"?"false":"true") +",");
+            ct.Append("sortable:true},");
+        }
+        
+        st.Append("Campos:[");
+        st.Append(ct.ToString());
+        st.Append("],");
+        st.Append("NombreBotonExportar:\"" + HttpUtility.HtmlEncode(grilla.Parts.NombreBotonExportar) + "\",");
+        //st.Append("NombreLabelPaginas:\"" + HttpUtility.HtmlEncode(grilla.Parts.NombreLabelPaginado) + "\",");
+        //st.Append("NombreLabelMostrando:\"" + HttpUtility.HtmlEncode(grilla.Parts.NombreLabelMostrando) + "\",");
+        st.Append("NombreSinResultados:\"" + HttpUtility.HtmlEncode(grilla.Parts.NombreSinResultados) + "\"");
+        st.Append("");
+        st.Append("};");
+        st.AppendLine("");
+        i++;
+
+		
+                  
+        st2.Append("<div id='block"+nombreGrilla1+"' height='100%'>");
+        st2.Append("	<div class='form_section'>");
+        st2.Append("<div class='forms2'>");
+        //st2.Append("<div class='block_content'>");
+		st2.Append("<div class='table-responsive' style=\"overflow:hidden\">");
+        st2.Append("<table id='grid"+nombreGrilla1+"'></table>");
+        st2.Append("<div id='grid"+nombreGrilla1+"_pager'></div>");
+        st2.Append("</div>");
+        st2.Append("</div>");
+        st2.Append("</div>");        
+        st2.Append("</div>");
+}
+                  
+
+
+   @Html.Raw(st2.ToString())
+
+              <script type="text/javascript">      
+                     
+                        
+                          @Html.Raw(st.ToString());
+                          
+                          
+  						var nombreGrilla="";
+          				var urlServicio="";
+			  </script>
+
+@if(1==1)
+{
+    nombreGrilla1= HttpUtility.HtmlEncode(grilla.Parts.objgrilla);
+    string nombreServicio =grilla.Parts.urlListar;
+    string flgOcultarBarraPaginado = grilla.Parts.OcultarBarraPaginado.ToString();
+    //string flgMarcarPrimerRegistro = grilla.Parts.MarcarPrimerRegistro.ToString();
+    int idMarcarPrimerResgistro= grilla.Parts.MarcarRegistroSeleccionado;
+    string nroRegistropagina=(String.IsNullOrEmpty(grilla.Parts.NroRegistroPagina.ToString())||grilla.Parts.NroRegistroPagina.ToString()=="0"?"10":grilla.Parts.NroRegistroPagina.ToString());
+    if(nombreServicio.Length>5)
+    {     
+    <script>
+      
+      $(function(){
+
+           $("#grid@(nombreGrilla1)").generarGrid({
+                columnas: @(nombreGrilla1).Campos,
+                //width: "100%",
+                width: 200,
+      			tipo:"jquery",
+      			rowNum: @nroRegistropagina,
+      			idgrilla:"@(grilla.Id)",
+                height: '@(grilla.Parts.altoGrilla)',
+                url: '@(grilla.Parts.urlListar)',
+                loadAtStarup: false,
+                //data: jQuery.parseJSON(datos),
+                pager: "#grid@(nombreGrilla1)_pager",
+                beforeProcessing: function (data, status, xhr) {
+                    //oculto el "cargando"
+                    $("body").unblock();
+                },
+                ondblClickRow: function (rowid, iRow, iCol, e) {
+      				@Html.Raw(grilla.Parts.JSDblClick.ToString().Replace("<br/>","\n"))
+                },
+                customButtons: [
+                    {
+                        caption: "Exportar",
+                        buttonicon: "ui-icon-print",
+                        onClickButton: function () {
+                            $("#grid@(nombreGrilla1)").doExportar();
+                        },
+                        position: "first"
+                    }
+                ],
+      			onSelectRow: function(rowid, iRow, iCol, e) {
+       				@Html.Raw(grilla.Parts.JSOnSelect.ToString().Replace("<br/>","\n"))
+    			},
+                gridComplete: function() {
+       			
+    
+      				$("#grid@(nombreGrilla1)").setGridWidth($("#grid@(nombreGrilla1)").parents(".block_content:first").width()-10);
+       				
+      				if(jQuery("#grid@(nombreGrilla1)").jqGrid('getGridParam', 'records')==0)
+                    {
+      					$('#grid@(nombreGrilla1)').clearFilter();
+      				}
+                       
+                      if(jQuery('#grid@(nombreGrilla1)').jqGrid('getGridParam','selrow')==null && @idMarcarPrimerResgistro != 0)
+                     //  if(jQuery('#grid@(nombreGrilla1)').jqGrid('getGridParam','selrow')==null &&)
+                      {                      
+                      	var grid = jQuery("#grid@(nombreGrilla1)"),
+                		ids = grid.jqGrid("getDataIDs");
+                        
+            			if(ids && ids.length > 0)
+                        {
+                         
+                          grid.jqGrid("setSelection", ids[@idMarcarPrimerResgistro-1]);
+                         
+                          
+                         @Html.Raw(grilla.Parts.JSOnLoad.ToString().Replace("<br/>","\n"))
+                        }
+                      }
+                    if(jQuery("#grid@(nombreGrilla1)").jqGrid('getGridParam', 'records')>0)
+                    {
+					 acomodarGrillaVMobile('grid@(nombreGrilla1)'); 
+                    }
+                }
+            
+                          
+            });
+            setTimeout('$("#grid@(nombreGrilla1)").setGridWidth($("#grid@(nombreGrilla1)").parents(".block_content:first").width());',2000);
+      	
+      		if('@flgOcultarBarraPaginado'=='1')
+            {
+                  $("#grid@(nombreGrilla1)_pager_center").css("display","none")
+            }
+               
+      });
+              
+              function acomodarGrillaVMobile(IdGrilla)
+             {
+              	if($(window).width()<=600)
+            	{
+              			$("#"+IdGrilla).width("1200px");
+                        $("#cabecera_"+IdGrilla).width("1200px");
+                  		$("#gbox_"+IdGrilla).find("th[role='columnheader']").each(function(x){ if(this.style.width=="0px"){ this.style.width="auto"; }});
+                  
+                        //$("#gbox_"+IdGrilla).find("tr [role='gridcell']").css("width","auto");
+              			//$("#gbox_"+IdGrilla).find("tr [role='columnheader']").css("width","auto");      
+                  
+                  if($("#"+IdGrilla+"_pager_center").css("display")!= "none")
+               	  {
+                     $("#"+IdGrilla+"_pager_center").append($("#"+IdGrilla+"_pager_right").find("div"));
+                     $("#"+IdGrilla+"_pager_right").remove();
+                  	 $("#"+IdGrilla+"_pager_center").append($("#"+IdGrilla+"_pager_left").find("table"));
+                     $("#"+IdGrilla+"_pager_left").remove();
+                     $("#"+IdGrilla+"_pager_center").find("div").css("text-align","center");
+                     $("#"+IdGrilla+"_pager").height("80px");				  
+                  }
+                  else{
+                   	//$("#"+IdGrilla+"_pager_center").remove();
+                    //$("#"+IdGrilla+"_pager_right").append($("#"+IdGrilla+"_pager_left").find("div"));
+                  	//$("#"+IdGrilla+"_pager_right").find("div").css("text-align","center");
+             	  }
+                 
+                 
+                }
+              }
+
+    </script>    
+    }
+}
+
+
