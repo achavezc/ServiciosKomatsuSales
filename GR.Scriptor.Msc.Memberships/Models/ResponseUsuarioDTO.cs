@@ -46,6 +46,7 @@ namespace GR.Scriptor.Msc.Memberships.Models
         public List<string> ProvinciasPermitidas { get; set; }
         public Dictionary<string, string> UrlServicios { get; set; }
         public List<String> GrupoClientesPermitidos { get; set; }
+        public List<String> CuentasPermitidas { get; set; }
     }
 
     public class UsuarioDTO

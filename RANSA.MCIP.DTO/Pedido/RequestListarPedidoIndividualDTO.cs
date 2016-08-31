@@ -12,7 +12,9 @@ namespace RANSA.MCIP.DTO
 
         public string CodigoTipoPedido { get; set; }
         public string NroPedido { get; set; }
+        public string NumeroReferencia { get; set; }
         public string CodigoNegocio { get; set; }
+        public string CodigoCuenta { get; set; }
         public string EstadoPedido { get; set; }
         public DateTime? FechaInicioSolicitud { get; set; }
         public DateTime? FechaFinSolicitud { get; set; }

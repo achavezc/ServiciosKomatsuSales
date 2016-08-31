@@ -124,6 +124,8 @@ namespace ModuloPilotoSodexo.Controllers
                     //UnidadesNegocioPermitidas = objInfo.Negocios.Select(x => x.Codigo).ToList(),
                     //SedesPermitidas = objInfo.Sedes.Select(x => x.Codigo).ToList(),
                     ProvinciasPermitidas = objInfo.RecursosAdicionales.FindAll(x => x.Descripcion.Contains("Provincias -")).Select(x => x.Codigo).ToList(),
+                    // adicional
+                    CuentasPermitidas = objInfo.RecursosAdicionales.FindAll(x => x.Descripcion.Contains("Cuenta -")).Select(x => x.Codigo).ToList()
                 };
 
                 FormsAuthentication.SetAuthCookie(objInfo.CodigoUsuario, false);

@@ -150,7 +150,9 @@ namespace ServicioOracleWCF
             command.Parameters.Add("v_result", OracleType.Cursor).Direction = ParameterDirection.Output;
             command.Parameters.AddWithValue("v_codigotipopedido", string.IsNullOrEmpty(request.CodigoTipoPedido) ? (object)DBNull.Value : request.CodigoTipoPedido);
             command.Parameters.AddWithValue("v_nropedido", string.IsNullOrEmpty(request.NroPedido) ? (object)DBNull.Value : request.NroPedido);
+            command.Parameters.AddWithValue("v_nroreferencia", string.IsNullOrEmpty(request.NumeroReferencia) ? (object)DBNull.Value : request.NumeroReferencia);
             command.Parameters.AddWithValue("v_codigonegocio", string.IsNullOrEmpty(request.CodigoNegocio) ? (object)DBNull.Value : request.CodigoNegocio);
+            command.Parameters.AddWithValue("v_codigocuenta", string.IsNullOrEmpty(request.CodigoCuenta) ? (object)DBNull.Value : request.CodigoCuenta);
             command.Parameters.AddWithValue("v_estadopedido", string.IsNullOrEmpty(request.EstadoPedido) ? (object)DBNull.Value : request.EstadoPedido);
             command.Parameters.AddWithValue("v_fechainiciosolicitud", request.FechaInicioSolicitud == null ? (object)DBNull.Value : request.FechaInicioSolicitud);
             command.Parameters.AddWithValue("v_fechafinsolicitud", request.FechaFinSolicitud == null ? (object)DBNull.Value : request.FechaFinSolicitud);

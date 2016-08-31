@@ -160,11 +160,17 @@ namespace ModuloPilotoSodexo.Controllers
                 RequestObtenerCuentaPorCliente requestCuenta = new RequestObtenerCuentaPorCliente();
                 requestCuenta.CodigoCliente = Session["CodigoCliente"].ToString();
 
-
                 var responseObtenerCuenta = cuentaBL.ObtenerCuentaPorCliente(requestCuenta);
 
+                //pedidoViewModel.ObjetosFormulario.ListaCodigoCuenta = GenerarListaCuenta(responseListaCuenta.Cuentas);    
+                var listaCuentas = GenerarListaCuenta(responseListaCuenta.Cuentas);
+                var ListaCuentasPermitidas = (from p in listaCuentas
+                                           where (from b in usuario.CuentasPermitidas
+                                                  select b)
+                                                     .Contains(p.Codigo)
+                                           select p).Distinct().ToList();
                 pedidoViewModel.ObjetosFormulario.ListaCodigoTipoPedido = GenerarListaTipoPedido(responseListaTipoPedido.TipoPedidos);
-                pedidoViewModel.ObjetosFormulario.ListaCodigoCuenta = GenerarListaCuenta(responseListaCuenta.Cuentas);
+                pedidoViewModel.ObjetosFormulario.ListaCodigoCuenta = ListaCuentasPermitidas;
                 pedidoViewModel.ObjetosFormulario.ListaCodigoPuntoOrigen = GenerarListaPuntoOrigen(responseListaAlmacen.Almacenes);
                 pedidoViewModel.ObjetosFormulario.ListaCodigoPuntoDestino = GenerarListaPuntoDestino(responseListaCliente.Clientes);
                 pedidoViewModel.ObjetosFormulario.ListaCodigoNegocio = GenerarListaNegocio(responseListaNegocio.Negocios);

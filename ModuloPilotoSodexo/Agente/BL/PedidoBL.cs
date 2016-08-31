@@ -138,7 +138,9 @@ namespace ModuloPilotoSodexo.Agente.BL
                 {
                     CodigoTipoPedido = request.filtro.CodigoTipoPedido,
                     NroPedido = request.filtro.NroPedido,
+                    NumeroReferencia = request.filtro.NumeroReferencia,
                     CodigoNegocio = request.filtro.CodigoNegocio,
+                    CodigoCuenta = request.filtro.CodigoCuenta,
                     //EstadoPedido = request.filtro.EstadoPedido,
                     EstadoPedido = request.filtro.Estado,
                     FechaInicioSolicitud = request.filtro.FechaSolicitudInicio,
