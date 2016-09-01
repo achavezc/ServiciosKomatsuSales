@@ -156,7 +156,6 @@ namespace ServicioOracleWCF
             Guid idPedidoTemp;
             try
             {
-
                 conexion.Open();
                 using (OracleCommand cmd = new OracleCommand(cnx.NombrePaqueteSeguimientoPedido() + "pa_mcippedidodetalle_registrar", conexion))
                 {
@@ -168,7 +167,7 @@ namespace ServicioOracleWCF
                     cmd.Parameters.AddWithValue("v_codigounidad", string.IsNullOrEmpty(request.UnidadMedida) ? (object)DBNull.Value : request.UnidadMedida);
                     cmd.Parameters.AddWithValue("v_observacion", string.IsNullOrEmpty(request.Observaciones) ? (object)DBNull.Value : request.Observaciones);
                     cmd.Parameters.AddWithValue("v_idpedido", string.IsNullOrEmpty(request.IdPedido) ? (object)DBNull.Value : request.IdPedido);
-                    cmd.Parameters.AddWithValue("v_fecharegistro", request.FechaRegistro == null ? (object)DBNull.Value : request.FechaRegistro);
+                    cmd.Parameters.AddWithValue("v_fecharegistro", DateTime.Now);
                     cmd.Parameters.AddWithValue("v_usuarioregistro", string.IsNullOrEmpty(request.UsuarioRegistro) ? (object)DBNull.Value : request.UsuarioRegistro);
                     cmd.Parameters.AddWithValue("v_fechamodificacion", request.FechaModificacion == null ? (object)DBNull.Value : request.FechaModificacion);
                     cmd.Parameters.AddWithValue("v_usuariomodificacion", string.IsNullOrEmpty(request.UsuarioModificacion) ? (object)DBNull.Value : request.UsuarioModificacion);

@@ -420,7 +420,7 @@ namespace ModuloPilotoSodexo.Agente.BL
                         oPedido.Observaciones = ItemCab["OBSERVACIONESCOMENTARIOS"].ToString();
                         oPedido.FechaRegistro = DateTime.Today;
                         oPedido.UsuarioRegistro = usuario;
-                        oPedido.EstadoPedido = ConfigurationManager.AppSettings["EstadoPedido"].ToString();
+                        oPedido.EstadoPedido = ConfigurationManager.AppSettings["EstadoPedidoMasivo"].ToString();
                         oPedido.EstadoRegistro = 1;
                         oPedido.DireccionOrigen = ItemCab["DIRECCIONORIGEN"].ToString();
                         oPedido.DireccionDestino = ItemCab["DIRECCIONDESTINO"].ToString();

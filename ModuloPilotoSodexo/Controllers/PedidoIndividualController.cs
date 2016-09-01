@@ -21,6 +21,7 @@ using GR.Scriptor.Framework;
 using ModuloPilotoSodexo.Helper;
 using ModuloPilotoSodexo.Models;
 using Newtonsoft.Json;
+using System.Configuration;
 
 
 namespace ModuloPilotoSodexo.Controllers
@@ -57,6 +58,7 @@ namespace ModuloPilotoSodexo.Controllers
             {
                 var usuario = Helper.HelperCtrl.ObtenerUsuario();
                 request.UsuarioRegistro = usuario;
+                request.EstadoPedido = ConfigurationManager.AppSettings["EstadoPedidoInicial"].ToString();
                 var response = new PedidoBL().RegistroPedidoIndividual(request);
                 actionResult = Content(JsonConvert.SerializeObject(response));
             }
@@ -165,10 +167,10 @@ namespace ModuloPilotoSodexo.Controllers
                 //pedidoViewModel.ObjetosFormulario.ListaCodigoCuenta = GenerarListaCuenta(responseListaCuenta.Cuentas);    
                 var listaCuentas = GenerarListaCuenta(responseListaCuenta.Cuentas);
                 var ListaCuentasPermitidas = (from p in listaCuentas
-                                           where (from b in usuario.CuentasPermitidas
-                                                  select b)
-                                                     .Contains(p.Codigo)
-                                           select p).Distinct().ToList();
+                                              where (from b in usuario.CuentasPermitidas
+                                                     select b)
+                                                        .Contains(p.Codigo)
+                                              select p).Distinct().ToList();
                 pedidoViewModel.ObjetosFormulario.ListaCodigoTipoPedido = GenerarListaTipoPedido(responseListaTipoPedido.TipoPedidos);
                 pedidoViewModel.ObjetosFormulario.ListaCodigoCuenta = ListaCuentasPermitidas;
                 pedidoViewModel.ObjetosFormulario.ListaCodigoPuntoOrigen = GenerarListaPuntoOrigen(responseListaAlmacen.Almacenes);

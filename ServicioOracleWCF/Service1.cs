@@ -24,7 +24,7 @@ namespace ServicioOracleWCF
                 request.ListaDetallePedido.ForEach(x =>
                 {
                     x.IdPedido = response.Result.idPedido;
-                    x.UsuarioRegistro = request.UsuarioModificacion;
+                    x.UsuarioRegistro = request.UsuarioRegistro;
                     servicioBL.RegistrarDetallePedido(x);
                 });
 
