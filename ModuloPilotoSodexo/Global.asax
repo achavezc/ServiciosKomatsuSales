@@ -1,1 +1,0 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Viatecla.Factory.Scriptor.ModularSite.MvcApplication" Language="C#" %>
