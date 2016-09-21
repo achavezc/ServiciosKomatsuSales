@@ -19,24 +19,23 @@ namespace ServiciosKomatsuSales
 
         [OperationContract]
         [WebInvoke(UriTemplate = "/Login", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        PersonalBE Login(string usuario, string password);
+        PersonalBE Login(RequestLogin request);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "/ObtenerClientes", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        List<ClienteBE> ObtenerClientes(string ruc, string razonsocial);
+        List<ClienteBE> ObtenerClientes(RequestConsultarClientes request);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "/ObtenerProductos", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        List<ProductoBE> ObtenerProductos(string codigoProducto, string nombreProducto);
+        List<ProductoBE> ObtenerProductos(RequestConsultarProductos request);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "/ObtenerVisitas", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        List<VisitaBE> ObtenerVisitas(string nombrePersonal, string dni);
+        List<VisitaBE> ObtenerVisitas(RequestObtenerVisitas request);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "/ObtenerCotizaciones", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        List<CotizacionBE> ObtenerCotizaciones(string numeroCotizacion, DateTime fechaEmision, string estado,
-            string nombrePersonal, string dni);
+        List<CotizacionBE> ObtenerCotizaciones(RequestObtenerCotizaciones request);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "/ObtenerDetalleCotizacion", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]

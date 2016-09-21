@@ -12,6 +12,7 @@ namespace ServiciosKomatsuSales
 {
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "Service1" en el código, en svc y en el archivo de configuración.
     // NOTE: para iniciar el Cliente de prueba WCF para probar este servicio, seleccione Service1.svc o Service1.svc.cs en el Explorador de soluciones e inicie la depuración.
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class Service1 : IService1
     {
         public string GetData(int value)
@@ -19,27 +20,26 @@ namespace ServiciosKomatsuSales
             return string.Format("You entered: {0}", value);
         }
 
-        public PersonalBE Login(string usuario, string password)
+        public PersonalBE Login(RequestLogin request)
         {
-            return new PersonalBL().Login(usuario, password);
+            return new PersonalBL().Login(request.usuario, request.password);
         }
-        public List<ClienteBE> ObtenerClientes(string ruc, string razonsocial)
+        public List<ClienteBE> ObtenerClientes(RequestConsultarClientes request)
         {
-            return new ClienteBL().ObtenerClientes(ruc, razonsocial);
+            return new ClienteBL().ObtenerClientes(request.Ruc, request.RazonSocial);
         }
-        public List<ProductoBE> ObtenerProductos(string codigoProducto, string nombreProducto)
+        public List<ProductoBE> ObtenerProductos(RequestConsultarProductos request)
         {
-            return new ProductoBL().ObtenerProductos(codigoProducto, nombreProducto);
+            return new ProductoBL().ObtenerProductos(request.CodigoProducto, request.NombreProducto);
         }
-        public List<VisitaBE> ObtenerVisitas(string nombrePersonal, string dni)
+        public List<VisitaBE> ObtenerVisitas(RequestObtenerVisitas request)
         {
-            return new VisitaBL().ObtenerVisitas(nombrePersonal, dni);
+            return new VisitaBL().ObtenerVisitas(request.NombrePersonal, request.DNI);
         }
 
-        public List<CotizacionBE> ObtenerCotizaciones(string numeroCotizacion, DateTime fechaEmision, string estado,
-            string nombrePersonal, string dni)
+        public List<CotizacionBE> ObtenerCotizaciones(RequestObtenerCotizaciones request)
         {
-            return new CotizacionBL().ObtenerCotizaciones(numeroCotizacion, fechaEmision, estado, nombrePersonal, dni);
+            return new CotizacionBL().ObtenerCotizaciones(request.NumeroCotizacion, request.FechaEmision, request.Estado, request.NombrePersonal, request.DNI);
         }
 
         public List<DetalleCotizacionBE> ObtenerDetalleCotizacion(string numeroCotizacion)

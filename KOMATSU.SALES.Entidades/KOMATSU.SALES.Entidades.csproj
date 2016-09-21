@@ -45,6 +45,11 @@
     <Compile Include="ClienteBE.cs" />
     <Compile Include="PersonalBE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestObtenerCotizaciones.cs" />
+    <Compile Include="RequestObtenerVisitas.cs" />
+    <Compile Include="RequestConsultarProductos.cs" />
+    <Compile Include="RequestConsultarClientes.cs" />
+    <Compile Include="RequestLogin.cs" />
     <Compile Include="VisitaBE.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
