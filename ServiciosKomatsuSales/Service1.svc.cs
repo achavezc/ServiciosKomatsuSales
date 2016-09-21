@@ -23,6 +23,28 @@ namespace ServiciosKomatsuSales
         {
             return new PersonalBL().Login(usuario, password);
         }
-     
+        public List<ClienteBE> ObtenerClientes(string ruc, string razonsocial)
+        {
+            return new ClienteBL().ObtenerClientes(ruc, razonsocial);
+        }
+        public List<ProductoBE> ObtenerProductos(string codigoProducto, string nombreProducto)
+        {
+            return new ProductoBL().ObtenerProductos(codigoProducto, nombreProducto);
+        }
+        public List<VisitaBE> ObtenerVisitas(string nombrePersonal, string dni)
+        {
+            return new VisitaBL().ObtenerVisitas(nombrePersonal, dni);
+        }
+
+        public List<CotizacionBE> ObtenerCotizaciones(string numeroCotizacion, DateTime fechaEmision, string estado,
+            string nombrePersonal, string dni)
+        {
+            return new CotizacionBL().ObtenerCotizaciones(numeroCotizacion, fechaEmision, estado, nombrePersonal, dni);
+        }
+
+        public List<DetalleCotizacionBE> ObtenerDetalleCotizacion(string numeroCotizacion)
+        {
+            return new CotizacionBL().ObtenerDetalleCotizacion(numeroCotizacion);
+        }
     }
 }

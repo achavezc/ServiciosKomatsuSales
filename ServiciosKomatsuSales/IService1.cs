@@ -18,7 +18,29 @@ namespace ServiciosKomatsuSales
         string GetData(int value);
 
         [OperationContract]
+        [WebInvoke(UriTemplate = "/Login", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         PersonalBE Login(string usuario, string password);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/ObtenerClientes", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        List<ClienteBE> ObtenerClientes(string ruc, string razonsocial);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/ObtenerProductos", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        List<ProductoBE> ObtenerProductos(string codigoProducto, string nombreProducto);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/ObtenerVisitas", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        List<VisitaBE> ObtenerVisitas(string nombrePersonal, string dni);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/ObtenerCotizaciones", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        List<CotizacionBE> ObtenerCotizaciones(string numeroCotizacion, DateTime fechaEmision, string estado,
+            string nombrePersonal, string dni);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/ObtenerDetalleCotizacion", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        List<DetalleCotizacionBE> ObtenerDetalleCotizacion(string numeroCotizacion);
     }
 
 

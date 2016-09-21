@@ -39,6 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CotizacionBL.cs" />
+    <Compile Include="VisitaBL.cs" />
+    <Compile Include="ProductoBL.cs" />
+    <Compile Include="ClienteBL.cs" />
     <Compile Include="PersonalBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
